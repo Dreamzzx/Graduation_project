@@ -1,3 +1,9 @@
 D:/Project/Graduation project/build/CMakeFiles/VideoPush.dir
-D:/Project/Graduation project/build/CMakeFiles/ALL_BUILD.dir
-D:/Project/Graduation project/build/CMakeFiles/ZERO_CHECK.dir
+D:/Project/Graduation project/build/CMakeFiles/edit_cache.dir
+D:/Project/Graduation project/build/CMakeFiles/rebuild_cache.dir
+D:/Project/Graduation project/build/src/core_pusher/CMakeFiles/core_pusher.dir
+D:/Project/Graduation project/build/src/core_pusher/CMakeFiles/edit_cache.dir
+D:/Project/Graduation project/build/src/core_pusher/CMakeFiles/rebuild_cache.dir
+D:/Project/Graduation project/build/src/core_capture/CMakeFiles/core_capture.dir
+D:/Project/Graduation project/build/src/core_capture/CMakeFiles/edit_cache.dir
+D:/Project/Graduation project/build/src/core_capture/CMakeFiles/rebuild_cache.dir

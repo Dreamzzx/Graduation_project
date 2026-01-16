@@ -1,0 +1,1 @@
+  -L"D:/Project/Graduation project/3rdparty/ffmpeg_7_cuda/lib"  lib/libcore_pusher.a lib/libcore_capture.a -lavcodec -lavformat -lavutil -lavfilter -lswscale -lswresample -lavdevice -lpthread -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 

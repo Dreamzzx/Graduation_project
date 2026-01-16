@@ -1,4 +1,4 @@
-cd build
-make -j8
-cd ../bin
-./VideoPush
+cd ./build
+cmake --build .
+cd bin
+./VideoPush.exe

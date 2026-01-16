@@ -1,0 +1,2 @@
+C:\MinGw\MinGW\bin\ar.exe qc ..\..\lib\libcore_pusher.a CMakeFiles/core_pusher.dir/Zpusher.cpp.obj
+C:\MinGw\MinGW\bin\ranlib.exe ..\..\lib\libcore_pusher.a

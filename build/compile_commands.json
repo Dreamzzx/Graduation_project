@@ -1,0 +1,20 @@
+[
+{
+  "directory": "D:/Project/Graduation project/build",
+  "command": "C:\\MinGw\\MinGW\\bin\\g++.exe  @CMakeFiles/VideoPush.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\VideoPush.dir\\main.cpp.obj -c \"D:\\Project\\Graduation project\\main.cpp\"",
+  "file": "D:/Project/Graduation project/main.cpp",
+  "output": "CMakeFiles/VideoPush.dir/main.cpp.obj"
+},
+{
+  "directory": "D:/Project/Graduation project/build/src/core_pusher",
+  "command": "C:\\MinGw\\MinGW\\bin\\g++.exe  @CMakeFiles/core_pusher.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\core_pusher.dir\\Zpusher.cpp.obj -c \"D:\\Project\\Graduation project\\src\\core_pusher\\Zpusher.cpp\"",
+  "file": "D:/Project/Graduation project/src/core_pusher/Zpusher.cpp",
+  "output": "src/core_pusher/CMakeFiles/core_pusher.dir/Zpusher.cpp.obj"
+},
+{
+  "directory": "D:/Project/Graduation project/build/src/core_capture",
+  "command": "C:\\MinGw\\MinGW\\bin\\g++.exe  @CMakeFiles/core_capture.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\core_capture.dir\\video_capture.cpp.obj -c \"D:\\Project\\Graduation project\\src\\core_capture\\video_capture.cpp\"",
+  "file": "D:/Project/Graduation project/src/core_capture/video_capture.cpp",
+  "output": "src/core_capture/CMakeFiles/core_capture.dir/video_capture.cpp.obj"
+}
+]

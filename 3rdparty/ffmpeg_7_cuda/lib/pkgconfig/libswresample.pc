@@ -1,0 +1,14 @@
+prefix=/home/zzx/FFmpeg-release-7.1/ffmpeg_install
+exec_prefix=${prefix}
+libdir=/home/zzx/FFmpeg-release-7.1/ffmpeg_install/lib
+includedir=/home/zzx/FFmpeg-release-7.1/ffmpeg_install/include
+
+Name: libswresample
+Description: FFmpeg audio resampling library
+Version: 5.3.100
+Requires: 
+Requires.private: libavutil >= 59.39.100
+Conflicts:
+Libs: -L${libdir}  -lswresample 
+Libs.private: -lm -latomic
+Cflags: -I${includedir}
