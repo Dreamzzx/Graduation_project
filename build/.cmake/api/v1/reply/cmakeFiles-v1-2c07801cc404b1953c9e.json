@@ -149,7 +149,7 @@
 			"path" : "src/core_pusher/CMakeLists.txt"
 		},
 		{
-			"path" : "src/core_capture/CMakeLists.txt"
+			"path" : "src/video_source/CMakeLists.txt"
 		}
 	],
 	"kind" : "cmakeFiles",

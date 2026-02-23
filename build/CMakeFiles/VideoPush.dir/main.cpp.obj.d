@@ -227,4 +227,4 @@ CMakeFiles/VideoPush.dir/main.cpp.obj: \
  C:/MinGw/MinGW/include/c++/13.2.0/atomic \
  C:/MinGw/MinGW/include/c++/13.2.0/bits/atomic_base.h \
  C:/MinGw/MinGW/include/c++/13.2.0/bits/atomic_lockfree_defines.h \
- D:/Project/Graduation\ project/src/core_capture/video_capture.h
+ D:/Project/Graduation\ project/src/video_source/VideoSource.h

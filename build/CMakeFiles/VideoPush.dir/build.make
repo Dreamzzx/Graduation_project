@@ -93,7 +93,7 @@ VideoPush_EXTERNAL_OBJECTS =
 bin/VideoPush.exe: CMakeFiles/VideoPush.dir/main.cpp.obj
 bin/VideoPush.exe: CMakeFiles/VideoPush.dir/build.make
 bin/VideoPush.exe: lib/libcore_pusher.a
-bin/VideoPush.exe: lib/libcore_capture.a
+bin/VideoPush.exe: lib/libvideo_source.a
 bin/VideoPush.exe: CMakeFiles/VideoPush.dir/linkLibs.rsp
 bin/VideoPush.exe: CMakeFiles/VideoPush.dir/objects1.rsp
 bin/VideoPush.exe: CMakeFiles/VideoPush.dir/link.txt

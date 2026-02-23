@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 # 定义模块库名称（建议和模块名一致，方便识别）
-set(ZPUSHER_MODULE_NAME core_capture)
+set(ZPUSHER_MODULE_NAME video_source)
 
 # 收集模块的源码文件（ZPusher.cpp）
 file(GLOB ZPUSHER_SOURCES *.cpp)

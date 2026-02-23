@@ -12,9 +12,9 @@
   "output": "src/core_pusher/CMakeFiles/core_pusher.dir/Zpusher.cpp.obj"
 },
 {
-  "directory": "D:/Project/Graduation project/build/src/core_capture",
-  "command": "C:\\MinGw\\MinGW\\bin\\g++.exe  @CMakeFiles/core_capture.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\core_capture.dir\\video_capture.cpp.obj -c \"D:\\Project\\Graduation project\\src\\core_capture\\video_capture.cpp\"",
-  "file": "D:/Project/Graduation project/src/core_capture/video_capture.cpp",
-  "output": "src/core_capture/CMakeFiles/core_capture.dir/video_capture.cpp.obj"
+  "directory": "D:/Project/Graduation project/build/src/video_source",
+  "command": "C:\\MinGw\\MinGW\\bin\\g++.exe  @CMakeFiles/video_source.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\video_source.dir\\VideoSource.cpp.obj -c \"D:\\Project\\Graduation project\\src\\video_source\\VideoSource.cpp\"",
+  "file": "D:/Project/Graduation project/src/video_source/VideoSource.cpp",
+  "output": "src/video_source/CMakeFiles/video_source.dir/VideoSource.cpp.obj"
 }
 ]

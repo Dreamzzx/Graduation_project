@@ -40,7 +40,7 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("D:/Project/Graduation project/build/src/core_pusher/cmake_install.cmake")
-  include("D:/Project/Graduation project/build/src/core_capture/cmake_install.cmake")
+  include("D:/Project/Graduation project/build/src/video_source/cmake_install.cmake")
 
 endif()
 

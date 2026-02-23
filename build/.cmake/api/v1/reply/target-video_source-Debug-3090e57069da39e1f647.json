@@ -3,7 +3,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "lib/libcore_capture.a"
+			"path" : "lib/libvideo_source.a"
 		}
 	],
 	"backtrace" : 1,
@@ -18,7 +18,7 @@
 		],
 		"files" : 
 		[
-			"src/core_capture/CMakeLists.txt",
+			"src/video_source/CMakeLists.txt",
 			"CMakeLists.txt"
 		],
 		"nodes" : 
@@ -82,7 +82,7 @@
 				},
 				{
 					"backtrace" : 5,
-					"path" : "D:/Project/Graduation project/src/core_capture"
+					"path" : "D:/Project/Graduation project/src/video_source"
 				}
 			],
 			"language" : "CXX",
@@ -100,13 +100,13 @@
 			]
 		}
 	],
-	"id" : "core_capture::@31de00ccdbb5b2e0861c",
-	"name" : "core_capture",
-	"nameOnDisk" : "libcore_capture.a",
+	"id" : "video_source::@ebdc9557a7e92da8fda9",
+	"name" : "video_source",
+	"nameOnDisk" : "libvideo_source.a",
 	"paths" : 
 	{
-		"build" : "src/core_capture",
-		"source" : "src/core_capture"
+		"build" : "src/video_source",
+		"source" : "src/video_source"
 	},
 	"sourceGroups" : 
 	[
@@ -123,7 +123,7 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/core_capture/video_capture.cpp",
+			"path" : "src/video_source/VideoSource.cpp",
 			"sourceGroupIndex" : 0
 		}
 	],

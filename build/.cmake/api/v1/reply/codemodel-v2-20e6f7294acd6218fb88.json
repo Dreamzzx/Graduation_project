@@ -35,22 +35,22 @@
 					"source" : "src/core_pusher",
 					"targetIndexes" : 
 					[
-						2
+						1
 					]
 				},
 				{
-					"build" : "src/core_capture",
-					"jsonFile" : "directory-src.core_capture-Debug-388ae49e6c06026d4d30.json",
+					"build" : "src/video_source",
+					"jsonFile" : "directory-src.video_source-Debug-7606f89e11c3d569bd4b.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.10"
 					},
 					"parentIndex" : 0,
 					"projectIndex" : 0,
-					"source" : "src/core_capture",
+					"source" : "src/video_source",
 					"targetIndexes" : 
 					[
-						1
+						2
 					]
 				}
 			],
@@ -78,15 +78,8 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "VideoPush::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-VideoPush-Debug-49a31dd80175416b7b63.json",
+					"jsonFile" : "target-VideoPush-Debug-9f6158f98831b1382091.json",
 					"name" : "VideoPush",
-					"projectIndex" : 0
-				},
-				{
-					"directoryIndex" : 2,
-					"id" : "core_capture::@31de00ccdbb5b2e0861c",
-					"jsonFile" : "target-core_capture-Debug-7001a887687d4e3a36a1.json",
-					"name" : "core_capture",
 					"projectIndex" : 0
 				},
 				{
@@ -94,6 +87,13 @@
 					"id" : "core_pusher::@dacce7015a0a24cf91bf",
 					"jsonFile" : "target-core_pusher-Debug-43e2b88e46289d703646.json",
 					"name" : "core_pusher",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "video_source::@ebdc9557a7e92da8fda9",
+					"jsonFile" : "target-video_source-Debug-3090e57069da39e1f647.json",
+					"name" : "video_source",
 					"projectIndex" : 0
 				}
 			]

@@ -2,6 +2,7 @@
 #define CAPTURE_VIDEO_H
 
 #include <iostream>
+#include <atomic>
 
 extern "C" {
 #include <libavformat/avformat.h>
@@ -10,15 +11,19 @@ extern "C" {
 }
 
 
-class VideoCapture
+class VideoSource
 {
 private:
     /* data */
 public:
-    VideoCapture(/* args */);
-    ~VideoCapture();
+    VideoSource(const char*device_name, std::atomic<bool>* is_pushing);
+    ~VideoSource();
 
     bool Init();
+
+    void start();
+
+    bool initDecoder(AVStream* video_stream);
 private:
 
 private:
@@ -27,5 +32,11 @@ private:
     const AVInputFormat *input_format = nullptr;
 
     AVFormatContext *format_ctx = nullptr;
+    AVCodecContext *codec_ctx = nullptr;
+
+    std::atomic<bool>* is_running;
+
+    int video_stream_index;
+
 };
 #endif // CAPTURE_VIDEO_H

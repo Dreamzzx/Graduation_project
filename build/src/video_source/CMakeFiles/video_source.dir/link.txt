@@ -1,0 +1,2 @@
+C:\MinGw\MinGW\bin\ar.exe qc ..\..\lib\libvideo_source.a CMakeFiles/video_source.dir/VideoSource.cpp.obj
+C:\MinGw\MinGW\bin\ranlib.exe ..\..\lib\libvideo_source.a

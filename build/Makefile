@@ -142,17 +142,17 @@ core_pusher/fast:
 .PHONY : core_pusher/fast
 
 #=============================================================================
-# Target rules for targets named core_capture
+# Target rules for targets named video_source
 
 # Build rule for target.
-core_capture: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 core_capture
-.PHONY : core_capture
+video_source: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 video_source
+.PHONY : video_source
 
 # fast build rule for target.
-core_capture/fast:
-	$(MAKE) $(MAKESILENT) -f src\core_capture\CMakeFiles\core_capture.dir\build.make src/core_capture/CMakeFiles/core_capture.dir/build
-.PHONY : core_capture/fast
+video_source/fast:
+	$(MAKE) $(MAKESILENT) -f src\video_source\CMakeFiles\video_source.dir\build.make src/video_source/CMakeFiles/video_source.dir/build
+.PHONY : video_source/fast
 
 main.obj: main.cpp.obj
 .PHONY : main.obj
@@ -187,8 +187,8 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... VideoPush
-	@echo ... core_capture
 	@echo ... core_pusher
+	@echo ... video_source
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

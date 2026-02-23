@@ -4,6 +4,6 @@ D:/Project/Graduation project/build/CMakeFiles/rebuild_cache.dir
 D:/Project/Graduation project/build/src/core_pusher/CMakeFiles/core_pusher.dir
 D:/Project/Graduation project/build/src/core_pusher/CMakeFiles/edit_cache.dir
 D:/Project/Graduation project/build/src/core_pusher/CMakeFiles/rebuild_cache.dir
-D:/Project/Graduation project/build/src/core_capture/CMakeFiles/core_capture.dir
-D:/Project/Graduation project/build/src/core_capture/CMakeFiles/edit_cache.dir
-D:/Project/Graduation project/build/src/core_capture/CMakeFiles/rebuild_cache.dir
+D:/Project/Graduation project/build/src/video_source/CMakeFiles/video_source.dir
+D:/Project/Graduation project/build/src/video_source/CMakeFiles/edit_cache.dir
+D:/Project/Graduation project/build/src/video_source/CMakeFiles/rebuild_cache.dir

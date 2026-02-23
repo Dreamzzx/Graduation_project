@@ -33,8 +33,8 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.26.3/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.26.3/CMakeRCCompiler.cmake"
   "CMakeFiles/3.26.3/CMakeSystem.cmake"
-  "D:/Project/Graduation project/src/core_capture/CMakeLists.txt"
   "D:/Project/Graduation project/src/core_pusher/CMakeLists.txt"
+  "D:/Project/Graduation project/src/video_source/CMakeLists.txt"
   )
 
 # The corresponding makefile is:
@@ -47,12 +47,12 @@ set(CMAKE_MAKEFILE_OUTPUTS
 set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   "src/core_pusher/CMakeFiles/CMakeDirectoryInformation.cmake"
-  "src/core_capture/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "src/video_source/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/VideoPush.dir/DependInfo.cmake"
   "src/core_pusher/CMakeFiles/core_pusher.dir/DependInfo.cmake"
-  "src/core_capture/CMakeFiles/core_capture.dir/DependInfo.cmake"
+  "src/video_source/CMakeFiles/video_source.dir/DependInfo.cmake"
   )

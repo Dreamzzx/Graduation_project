@@ -30,14 +30,14 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)  # 动态库
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)  # 静态库
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/core_pusher)
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/core_capture)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/video_source)
 
 add_executable(VideoPush main.cpp)
 
 target_link_libraries(VideoPush
     PRIVATE
     core_pusher
-    core_capture
+    video_source
     ${FFMPEG_LIBS}
     pthread 
 )

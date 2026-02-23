@@ -8,7 +8,7 @@
 	"installers" : [],
 	"paths" : 
 	{
-		"build" : "src/core_capture",
-		"source" : "src/core_capture"
+		"build" : "src/video_source",
+		"source" : "src/video_source"
 	}
 }

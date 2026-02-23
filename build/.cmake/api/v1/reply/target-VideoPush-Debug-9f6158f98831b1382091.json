@@ -84,7 +84,7 @@
 				},
 				{
 					"backtrace" : 3,
-					"path" : "D:/Project/Graduation project/src/core_capture"
+					"path" : "D:/Project/Graduation project/src/video_source"
 				}
 			],
 			"language" : "CXX",
@@ -110,7 +110,7 @@
 		},
 		{
 			"backtrace" : 3,
-			"id" : "core_capture::@31de00ccdbb5b2e0861c"
+			"id" : "video_source::@ebdc9557a7e92da8fda9"
 		}
 	],
 	"id" : "VideoPush::@6890427a1f51a3e7e1df",
@@ -138,7 +138,7 @@
 			},
 			{
 				"backtrace" : 3,
-				"fragment" : "lib\\libcore_capture.a",
+				"fragment" : "lib\\libvideo_source.a",
 				"role" : "libraries"
 			},
 			{

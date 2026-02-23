@@ -10,14 +10,10 @@ extern "C" {
 
 #include <string>
 #include <atomic>
-#include "../core_capture/video_capture.h"
+#include "../video_source/VideoSource.h"
 
 class ZPusher
 {
-private:
-    std::string *device_name;
-    std::string rtsp_url;
-    std::atomic<bool> is_pushing;
 public:
     ZPusher(const char *device_name);
     ~ZPusher();
@@ -34,9 +30,15 @@ private:
     void start(); // 启动推流
 
 private:
+
     AVFormatContext* fmt_ctx = nullptr;
 
-    VideoCapture* video_capture = nullptr;
+    VideoSource* video_source = nullptr;
+
+    std::string *device_name;
+    std::string rtsp_url;
+
+    std::atomic<bool> is_pushing{false};
 };
 
 #endif // ZPUSHER_H

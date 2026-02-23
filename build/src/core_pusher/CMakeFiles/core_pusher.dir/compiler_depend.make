@@ -184,7 +184,7 @@ src/core_pusher/CMakeFiles/core_pusher.dir/Zpusher.cpp.obj: D:/Project/Graduatio
   C:/MinGw/MinGW/include/c++/13.2.0/atomic \
   C:/MinGw/MinGW/include/c++/13.2.0/bits/atomic_base.h \
   C:/MinGw/MinGW/include/c++/13.2.0/bits/atomic_lockfree_defines.h \
-  D:/Project/Graduation\ project/src/core_capture/video_capture.h \
+  D:/Project/Graduation\ project/src/video_source/VideoSource.h \
   C:/MinGw/MinGW/include/c++/13.2.0/iostream \
   C:/MinGw/MinGW/include/c++/13.2.0/ostream \
   C:/MinGw/MinGW/include/c++/13.2.0/ios \
@@ -478,8 +478,6 @@ D:/Project/Graduation\ project/3rdparty/ffmpeg_7_cuda/include/libavformat/versio
 
 D:/Project/Graduation\ project/3rdparty/ffmpeg_7_cuda/include/libavutil/frame.h:
 
-D:/Project/Graduation\ project/src/core_capture/video_capture.h:
-
 D:/Project/Graduation\ project/3rdparty/ffmpeg_7_cuda/include/libavcodec/codec.h:
 
 C:/MinGw/MinGW/include/c++/13.2.0/bits/basic_ios.tcc:
@@ -585,6 +583,8 @@ C:/MinGw/MinGW/include/c++/13.2.0/atomic:
 C:/MinGw/MinGW/include/c++/13.2.0/bits/atomic_base.h:
 
 C:/MinGw/MinGW/include/c++/13.2.0/bits/atomic_lockfree_defines.h:
+
+D:/Project/Graduation\ project/src/video_source/VideoSource.h:
 
 C:/MinGw/MinGW/include/c++/13.2.0/ostream:
 
