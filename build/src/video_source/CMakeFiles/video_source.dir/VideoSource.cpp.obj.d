@@ -148,16 +148,37 @@ src/video_source/CMakeFiles/video_source.dir/VideoSource.cpp.obj: \
  C:/MinGw/MinGW/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdint.h \
  C:/MinGw/MinGW/x86_64-w64-mingw32/include/stdint.h \
  C:/MinGw/MinGW/include/c++/13.2.0/bits/atomic_lockfree_defines.h \
- D:/Project/Graduation\ project/3rdparty/ffmpeg_7_cuda/include/libavformat/avformat.h \
- D:/Project/Graduation\ project/3rdparty/ffmpeg_7_cuda/include/libavcodec/codec_par.h \
- D:/Project/Graduation\ project/3rdparty/ffmpeg_7_cuda/include/libavutil/avutil.h \
- D:/Project/Graduation\ project/3rdparty/ffmpeg_7_cuda/include/libavutil/common.h \
- C:/MinGw/MinGW/x86_64-w64-mingw32/include/inttypes.h \
- C:/MinGw/MinGW/include/c++/13.2.0/math.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/opencv.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/opencv_modules.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/core.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/core/cvdef.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/core/version.hpp \
+ C:/MinGw/MinGW/include/c++/13.2.0/limits \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/core/hal/interface.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/cstdint \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/core/cv_cpu_dispatch.h \
+ C:/MinGw/MinGW/lib/gcc/x86_64-w64-mingw32/13.2.0/include/emmintrin.h \
+ C:/MinGw/MinGW/lib/gcc/x86_64-w64-mingw32/13.2.0/include/xmmintrin.h \
+ C:/MinGw/MinGW/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mmintrin.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/core/base.hpp \
+ C:/MinGw/MinGW/include/c++/13.2.0/climits \
+ C:/MinGw/MinGW/include/c++/13.2.0/algorithm \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/stl_algo.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/algorithmfwd.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/stl_heap.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/uniform_int_dist.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/stl_tempbuf.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/pstl/glue_algorithm_defs.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/pstl/execution_defs.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/core/cvstd.hpp \
+ C:/MinGw/MinGW/include/c++/13.2.0/cstring \
+ C:/MinGw/MinGW/x86_64-w64-mingw32/include/string.h \
+ C:/MinGw/MinGW/x86_64-w64-mingw32/include/sec_api/string_s.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/utility \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/stl_relops.h \
  C:/MinGw/MinGW/include/c++/13.2.0/cmath \
  C:/MinGw/MinGW/x86_64-w64-mingw32/include/math.h \
  C:/MinGw/MinGW/include/c++/13.2.0/bits/specfun.h \
- C:/MinGw/MinGW/include/c++/13.2.0/limits \
  C:/MinGw/MinGW/include/c++/13.2.0/tr1/gamma.tcc \
  C:/MinGw/MinGW/include/c++/13.2.0/tr1/special_function_util.h \
  C:/MinGw/MinGW/include/c++/13.2.0/tr1/bessel_function.tcc \
@@ -170,8 +191,191 @@ src/video_source/CMakeFiles/video_source.dir/VideoSource.cpp.obj: \
  C:/MinGw/MinGW/include/c++/13.2.0/tr1/poly_hermite.tcc \
  C:/MinGw/MinGW/include/c++/13.2.0/tr1/poly_laguerre.tcc \
  C:/MinGw/MinGW/include/c++/13.2.0/tr1/riemann_zeta.tcc \
- C:/MinGw/MinGW/x86_64-w64-mingw32/include/string.h \
- C:/MinGw/MinGW/x86_64-w64-mingw32/include/sec_api/string_s.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/core/cvstd_wrapper.hpp \
+ C:/MinGw/MinGW/include/c++/13.2.0/memory \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/stl_uninitialized.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/stl_raw_storage_iter.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/align.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/unique_ptr.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/shared_ptr.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/shared_ptr_base.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/allocated_ptr.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/ext/aligned_buffer.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/ext/concurrence.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/shared_ptr_atomic.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/backward/auto_ptr.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/pstl/glue_memory_defs.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/core/neon_utils.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/core/vsx_utils.hpp \
+ C:/MinGw/MinGW/x86_64-w64-mingw32/include/assert.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/core/check.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/core/traits.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/core/matx.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/core/saturate.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/core/fast_math.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/core/matx.inl.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/core/types.hpp \
+ C:/MinGw/MinGW/include/c++/13.2.0/cfloat \
+ C:/MinGw/MinGW/lib/gcc/x86_64-w64-mingw32/13.2.0/include/float.h \
+ C:/MinGw/MinGW/x86_64-w64-mingw32/include/float.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/vector \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/stl_vector.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/stl_bvector.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/vector.tcc \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/core/mat.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/core/bufferpool.hpp \
+ C:/MinGw/MinGW/include/c++/13.2.0/array \
+ C:/MinGw/MinGW/include/c++/13.2.0/compare \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/core/mat.inl.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/core/persistence.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/core/operations.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/core/cvstd.inl.hpp \
+ C:/MinGw/MinGW/include/c++/13.2.0/complex \
+ C:/MinGw/MinGW/include/c++/13.2.0/sstream \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/sstream.tcc \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/core/utility.hpp \
+ C:/MinGw/MinGW/include/c++/13.2.0/functional \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/std_function.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/unordered_map \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/unordered_map.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/hashtable.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/hashtable_policy.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/enable_special_members.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/node_handle.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/erase_if.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/mutex \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/chrono.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/ratio \
+ C:/MinGw/MinGW/include/c++/13.2.0/ctime \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/parse_numbers.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/std_mutex.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/unique_lock.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/core/optim.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/core/ovx.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/core/cvdef.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/calib3d.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/features2d.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/flann/miniflann.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/flann/defines.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/flann/config.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/core/affine.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/core/utils/logger.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/core/utils/logger.defines.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/core/utils/logtag.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/dnn.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/dnn/dnn.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/core/async.hpp \
+ C:/MinGw/MinGW/include/c++/13.2.0/chrono \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/dnn/version.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/dnn/dict.hpp \
+ C:/MinGw/MinGW/include/c++/13.2.0/map \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/stl_tree.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/stl_map.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/stl_multimap.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/dnn/layer.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/dnn/dnn.inl.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/dnn/utils/inference_engine.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/dnn/dnn.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/flann.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/flann/flann_base.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/flann/general.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/flann/matrix.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/flann/params.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/flann/any.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/flann/defines.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/flann/saving.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/flann/nn_index.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/flann/result_set.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/set \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/stl_set.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/stl_multiset.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/flann/all_indices.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/flann/kdtree_index.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/flann/dynamic_bitset.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/flann/dist.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/flann/heap.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/flann/allocator.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/flann/random.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/flann/kdtree_single_index.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/flann/kmeans_index.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/flann/logger.h \
+ C:/MinGw/MinGW/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdarg.h \
+ C:/MinGw/MinGW/x86_64-w64-mingw32/include/stdarg.h \
+ C:/MinGw/MinGW/x86_64-w64-mingw32/include/_mingw_stdarg.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/flann/composite_index.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/flann/linear_index.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/flann/hierarchical_clustering_index.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/flann/lsh_index.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/flann/lsh_table.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/iomanip \
+ C:/MinGw/MinGW/include/c++/13.2.0/locale \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/locale_facets_nonio.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/x86_64-w64-mingw32/bits/time_members.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/x86_64-w64-mingw32/bits/messages_members.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/codecvt.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/locale_facets_nonio.tcc \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/locale_conv.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/quoted_string.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/math.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/flann/autotuned_index.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/flann/ground_truth.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/flann/index_testing.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/flann/timer.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/flann/sampling.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/highgui.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/imgcodecs.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/videoio.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/imgproc.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/imgproc/segmentation.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/ml.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/ml/ml.inl.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/objdetect.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/objdetect/aruco_detector.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/objdetect/aruco_dictionary.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/objdetect/aruco_board.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/objdetect/graphical_code_detector.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/objdetect/detection_based_tracker.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/objdetect/face.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/objdetect/charuco_detector.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/objdetect/barcode.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/photo.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/stitching.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/stitching/warpers.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/stitching/detail/warpers.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/core/cuda.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/core/cuda_types.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/core/cuda.inl.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/stitching/detail/warpers_inl.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/stitching/detail/warpers.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/stitching/detail/matchers.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/stitching/detail/motion_estimators.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/stitching/detail/matchers.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/stitching/detail/util.hpp \
+ C:/MinGw/MinGW/include/c++/13.2.0/list \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/stl_list.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/list.tcc \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/stitching/detail/util_inl.hpp \
+ C:/MinGw/MinGW/include/c++/13.2.0/queue \
+ C:/MinGw/MinGW/include/c++/13.2.0/deque \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/stl_deque.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/deque.tcc \
+ C:/MinGw/MinGW/include/c++/13.2.0/bits/stl_queue.h \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/stitching/detail/camera.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/stitching/detail/exposure_compensate.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/stitching/detail/seam_finders.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/stitching/detail/blenders.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/stitching/detail/camera.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/video.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/video/tracking.hpp \
+ D:/Project/Graduation\ project/3rdparty/opencv/include/opencv2/video/background_segm.hpp \
+ D:/Project/Graduation\ project/src/safe_queue/VideoFrameQueue.h \
+ C:/MinGw/MinGW/include/c++/13.2.0/condition_variable \
+ C:/MinGw/MinGW/include/c++/13.2.0/optional \
+ D:/Project/Graduation\ project/3rdparty/ffmpeg_7_cuda/include/libavformat/avformat.h \
+ D:/Project/Graduation\ project/3rdparty/ffmpeg_7_cuda/include/libavcodec/codec_par.h \
+ D:/Project/Graduation\ project/3rdparty/ffmpeg_7_cuda/include/libavutil/avutil.h \
+ D:/Project/Graduation\ project/3rdparty/ffmpeg_7_cuda/include/libavutil/common.h \
+ C:/MinGw/MinGW/x86_64-w64-mingw32/include/inttypes.h \
  D:/Project/Graduation\ project/3rdparty/ffmpeg_7_cuda/include/libavutil/attributes.h \
  D:/Project/Graduation\ project/3rdparty/ffmpeg_7_cuda/include/libavutil/error.h \
  D:/Project/Graduation\ project/3rdparty/ffmpeg_7_cuda/include/libavutil/macros.h \
@@ -182,9 +386,6 @@ src/video_source/CMakeFiles/video_source.dir/VideoSource.cpp.obj: \
  D:/Project/Graduation\ project/3rdparty/ffmpeg_7_cuda/include/libavutil/mathematics.h \
  D:/Project/Graduation\ project/3rdparty/ffmpeg_7_cuda/include/libavutil/intfloat.h \
  D:/Project/Graduation\ project/3rdparty/ffmpeg_7_cuda/include/libavutil/log.h \
- C:/MinGw/MinGW/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdarg.h \
- C:/MinGw/MinGW/x86_64-w64-mingw32/include/stdarg.h \
- C:/MinGw/MinGW/x86_64-w64-mingw32/include/_mingw_stdarg.h \
  D:/Project/Graduation\ project/3rdparty/ffmpeg_7_cuda/include/libavutil/pixfmt.h \
  D:/Project/Graduation\ project/3rdparty/ffmpeg_7_cuda/include/libavutil/channel_layout.h \
  D:/Project/Graduation\ project/3rdparty/ffmpeg_7_cuda/include/libavutil/rational.h \
@@ -224,4 +425,7 @@ src/video_source/CMakeFiles/video_source.dir/VideoSource.cpp.obj: \
  D:/Project/Graduation\ project/3rdparty/ffmpeg_7_cuda/include/libavdevice/avdevice.h \
  D:/Project/Graduation\ project/3rdparty/ffmpeg_7_cuda/include/libavdevice/version_major.h \
  D:/Project/Graduation\ project/3rdparty/ffmpeg_7_cuda/include/libavdevice/version.h \
- D:/Project/Graduation\ project/3rdparty/ffmpeg_7_cuda/include/libavutil/opt.h
+ D:/Project/Graduation\ project/3rdparty/ffmpeg_7_cuda/include/libavutil/opt.h \
+ D:/Project/Graduation\ project/3rdparty/ffmpeg_7_cuda/include/libswscale/swscale.h \
+ D:/Project/Graduation\ project/3rdparty/ffmpeg_7_cuda/include/libswscale/version_major.h \
+ D:/Project/Graduation\ project/3rdparty/ffmpeg_7_cuda/include/libswscale/version.h

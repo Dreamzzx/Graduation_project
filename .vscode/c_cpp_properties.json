@@ -4,7 +4,12 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/src/core_pusher",
-                "${workspaceFolder}/src/core_capture"
+                "${workspaceFolder}/src/core_capture",
+                "${workspaceFolder}/src/video_source",
+                "${workspaceFolder}/src/audio_source",
+                "${workspaceFolder}/src/rtsp_server",
+                "${workspaceFolder}/src/utils",
+                "${workspaceFolder}/third_party/ffmpeg/include"
             ],
             "defines": [
                 "_DEBUG",

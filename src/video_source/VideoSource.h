@@ -4,10 +4,15 @@
 #include <iostream>
 #include <atomic>
 
+#include <opencv2/opencv.hpp>
+
+#include "VideoFrameQueue.h"
+
 extern "C" {
 #include <libavformat/avformat.h>
 #include <libavcodec/avcodec.h>
 #include <libavdevice/avdevice.h>
+#include <libswscale/swscale.h>
 }
 
 
@@ -25,7 +30,7 @@ public:
 
     bool initDecoder(AVStream* video_stream);
 private:
-
+    cv::Mat HWFrameToCvMat(AVFrame* frame);
 private:
     const char *device_name;
 
@@ -33,10 +38,12 @@ private:
 
     AVFormatContext *format_ctx = nullptr;
     AVCodecContext *codec_ctx = nullptr;
+    SwsContext *sws_ctx = nullptr;
 
     std::atomic<bool>* is_running;
 
     int video_stream_index;
 
+    VideoFrameQueue<cv::Mat> frame_queue;
 };
 #endif // CAPTURE_VIDEO_H

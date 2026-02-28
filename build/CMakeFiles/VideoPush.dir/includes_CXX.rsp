@@ -1,1 +1,1 @@
--I"D:/Project/Graduation project/src" -I"D:/Project/Graduation project/3rdparty/ffmpeg_7_cuda/include" -I"D:/Project/Graduation project/src/core_pusher" -I"D:/Project/Graduation project/src/video_source"
+-I"D:/Project/Graduation project/src" -I"D:/Project/Graduation project/src/safe_queue" -I"D:/Project/Graduation project/3rdparty/ffmpeg_7_cuda/include" -I"D:/Project/Graduation project/3rdparty/opencv/include" -I"D:/Project/Graduation project/src/core_pusher" -I"D:/Project/Graduation project/src/video_source"

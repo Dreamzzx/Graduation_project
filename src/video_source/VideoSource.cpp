@@ -18,6 +18,12 @@ VideoSource::~VideoSource()
         avformat_close_input(&format_ctx);
         format_ctx = nullptr;
     }
+
+    if(sws_ctx)
+    {
+        sws_freeContext(sws_ctx);
+        sws_ctx = nullptr;
+    }
 }
 
 bool VideoSource::Init()
@@ -35,9 +41,10 @@ bool VideoSource::Init()
 
     // 设置读取摄像头缓冲区
     AVDictionary *options = nullptr;
-    av_dict_set(&options, "video_size", "640x480", 0);
+    //av_dict_set(&options, "video_size", "640x480", 0);
     av_dict_set(&options, "framerate", "15", 0);
 
+    //printf("Opening video device: %s\n", device_name);
     if (avformat_open_input(&format_ctx, device_name, input_format, &options) < 0)
     {
         std::cerr << "Failed to open input device." << std::endl;
@@ -61,7 +68,6 @@ bool VideoSource::Init()
     // 初始化解码器
     if (!initDecoder(format_ctx->streams[video_stream_index])) return false;
 
-
     return true;
 }
 
@@ -76,14 +82,13 @@ void VideoSource::start()
         ret = av_read_frame(format_ctx, packet);
         if (ret < 0){
             av_packet_free(&packet);
-            if (ret == AVERROR_EOF || !is_running->load()) break;
+           if (ret == AVERROR_EOF || !is_running->load()) break;
             continue;
         }
 
-        // 解码回调给ZPusher
+        // 解码
         ret = avcodec_send_packet(codec_ctx, packet);
         if(ret < 0){
-            std::cerr << "Error sending packet to decoder: " << av_err2str(ret) << std::endl;
             av_packet_unref(packet);
             av_packet_free(&packet);
             continue;
@@ -96,13 +101,15 @@ void VideoSource::start()
                 av_frame_free(&frame);
                 break;
             }else if(ret < 0){
-                std::cerr << "Error receiving frame from decoder: " << av_err2str(ret) << std::endl;
                 av_frame_free(&frame);
                 break;
             }
 
-            // 这里可以将解码后的帧传递给ZPusher进行推流
-            // 例如：video_source->pushFrame(frame);
+            
+            cv::Mat mat_frame = HWFrameToCvMat(frame);
+            if(!mat_frame.empty()){
+                frame_queue.Push(std::move(mat_frame));
+            }
 
             av_frame_free(&frame);
         }
@@ -121,7 +128,7 @@ bool VideoSource::initDecoder(AVStream *video_stream)
     // }
 
     // 使用CUDA加速的解码器
-    const AVCodec *decoder = avcodec_find_decoder_by_name("h264_cuvid");
+    const AVCodec *decoder = avcodec_find_decoder_by_name("mjpeg_cuvid");
     if (!decoder)  {
         std::cerr << "Failed to find CUDA decoder." << std::endl;
         return false;
@@ -157,4 +164,40 @@ bool VideoSource::initDecoder(AVStream *video_stream)
     }
 
     return true;
+}
+
+cv::Mat VideoSource::HWFrameToCvMat(AVFrame* frame)
+{
+    if (!frame || frame->format != AV_PIX_FMT_CUDA) {
+        std::cerr << "Not CUDA HW_Frame" << std::endl;
+        return cv::Mat();
+    }
+
+    AVFrame *cpu_frame = av_frame_alloc();
+    cpu_frame->format = AV_PIX_FMT_YUVJ422P;
+    cpu_frame->width = frame->width;
+    cpu_frame->height = frame->height;
+
+    av_frame_get_buffer(cpu_frame, 0);
+
+    // 从GPU帧传输数据到CPU帧
+    if (av_hwframe_transfer_data(cpu_frame, frame, 0) < 0) {
+        std::cerr << "Failed to transfer frame from GPU to CPU." << std::endl;
+        av_frame_free(&cpu_frame);
+        return cv::Mat();
+    }
+
+    // yuvj422p转bgr24
+    if(!sws_ctx){
+        sws_ctx = sws_getContext(cpu_frame->width, cpu_frame->height, (AVPixelFormat)cpu_frame->format,
+                                 cpu_frame->width, cpu_frame->height, AV_PIX_FMT_BGR24,
+                                 SWS_BILINEAR, nullptr, nullptr, nullptr);
+    }
+
+    cv::Mat mat(cpu_frame->height, cpu_frame->width, CV_8UC3);
+    uint8_t* dst_data[] = { mat.data };
+    int dst_linesize[] = { static_cast<int>(mat.step) };
+    sws_scale(sws_ctx, cpu_frame->data, cpu_frame->linesize, 0, cpu_frame->height, dst_data, dst_linesize);
+    av_frame_free(&cpu_frame);
+    return mat;
 }

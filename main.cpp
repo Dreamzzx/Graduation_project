@@ -3,7 +3,10 @@
 
 int main() {
     std::cout << "[BEGIN] main" << std::endl;
-    ZPusher zpusher("video=Integrated Camera");
+    //HP Wide Vision HD Camera
+    //Integrated Camera
+    //LRCP 500W
+    ZPusher zpusher("video=LRCP 500W");
     std::cin.get();
     return 0;
 }

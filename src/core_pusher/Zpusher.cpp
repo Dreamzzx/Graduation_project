@@ -17,10 +17,13 @@ void ZPusher::Init() // 初始化
     video_source = new VideoSource(device_name->c_str(),&is_pushing);
     if(!video_source->Init())
     {
-        std::cerr << "[采集模块]: 初始化失败!" << std::endl;
+        std::cerr << "[Capture Mode]: Init Failed!" << std::endl;
     }else{
-        std::cout << "[采集模块]: 初始化成功!" << std::endl;
+        std::cout << "[Capture Mode]: Init Success!" << std::endl;
     }
 
-    video_source->start();
+
+
+    //video_source->start();
+    is_pushing.store(true);
 }
