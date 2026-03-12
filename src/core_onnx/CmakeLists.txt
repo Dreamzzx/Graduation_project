@@ -1,0 +1,12 @@
+cmake_minimum_required(VERSION 3.10)
+
+set(ZPUSHER_MODULE_NAME core_onnx)
+
+file(GLOB ZPUSHER_SOURCES *.cpp)
+
+add_library(${ZPUSHER_MODULE_NAME} STATIC ${ZPUSHER_SOURCES})
+
+target_include_directories(${ZPUSHER_MODULE_NAME}
+    PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}
+)

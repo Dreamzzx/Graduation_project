@@ -4,12 +4,11 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/src/core_pusher",
-                "${workspaceFolder}/src/core_capture",
                 "${workspaceFolder}/src/video_source",
-                "${workspaceFolder}/src/audio_source",
-                "${workspaceFolder}/src/rtsp_server",
-                "${workspaceFolder}/src/utils",
-                "${workspaceFolder}/third_party/ffmpeg/include"
+                "${workspaceFolder}/3rdparty/ffmpeg_7_cuda/include",
+                "${workspaceFolder}/3rdparty/opencv/include",
+                "${workspaceFolder}/3rdparty/libtorch/include",
+                "${workspaceFolder}/3rdparty/libtorch/include/torch/csrc/api/include"
             ],
             "defines": [
                 "_DEBUG",

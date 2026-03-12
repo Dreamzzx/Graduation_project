@@ -1,2 +1,0 @@
-C:\MinGw\MinGW\bin\ar.exe qc ..\..\lib\libzpusher.a CMakeFiles/zpusher.dir/Zpusher.cpp.obj
-C:\MinGw\MinGW\bin\ranlib.exe ..\..\lib\libzpusher.a

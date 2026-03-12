@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视频推流管理系统</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 30px;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            background: linear-gradient(90deg, #00d4ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            color: #888;
+            font-size: 1.1em;
+        }
+        
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255,255,255,0.05);
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        .status-dot.running {
+            background: #00ff88;
+            box-shadow: 0 0 10px #00ff88;
+        }
+        
+        .status-dot.stopped {
+            background: #ff4757;
+            box-shadow: 0 0 10px #ff4757;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .control-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(90deg, #00d4ff, #00ff88);
+            color: #1a1a2e;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(90deg, #ff4757, #ff6b81);
+            color: #fff;
+        }
+        
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 71, 87, 0.4);
+        }
+        
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+        
+        @media (max-width: 1200px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .card-header h2 {
+            font-size: 1.3em;
+            color: #00d4ff;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #aaa;
+            font-size: 0.9em;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #00d4ff;
+        }
+        
+        .form-group select option {
+            background: #1a1a2e;
+            color: #fff;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .form-row-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .switch-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+        }
+        
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255,255,255,0.1);
+            transition: 0.4s;
+            border-radius: 26px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background: linear-gradient(90deg, #00d4ff, #00ff88);
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+        
+        .log-container {
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            padding: 15px;
+            height: 300px;
+            overflow-y: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.85em;
+            line-height: 1.6;
+        }
+        
+        .log-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .log-container::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+            border-radius: 4px;
+        }
+        
+        .log-container::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.2);
+            border-radius: 4px;
+        }
+        
+        .log-line {
+            color: #888;
+        }
+        
+        .log-line.error {
+            color: #ff4757;
+        }
+        
+        .log-line.success {
+            color: #00ff88;
+        }
+        
+        .log-line.info {
+            color: #00d4ff;
+        }
+        
+        .full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 15px 25px;
+            border-radius: 10px;
+            color: #fff;
+            font-weight: 500;
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .toast.success {
+            background: linear-gradient(90deg, #00d4ff, #00ff88);
+            color: #1a1a2e;
+        }
+        
+        .toast.error {
+            background: linear-gradient(90deg, #ff4757, #ff6b81);
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .refresh-btn {
+            background: none;
+            border: none;
+            color: #00d4ff;
+            cursor: pointer;
+            font-size: 1.2em;
+            padding: 5px;
+            transition: transform 0.3s;
+        }
+        
+        .refresh-btn:hover {
+            transform: rotate(180deg);
+        }
+        
+        .section-title {
+            font-size: 1.1em;
+            color: #00ff88;
+            margin: 20px 0 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .section-title:first-child {
+            margin-top: 0;
+        }
+        
+        .info-text {
+            color: #666;
+            font-size: 0.85em;
+            margin-top: 5px;
+        }
+        
+        .device-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .device-status .icon {
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📹 视频推流管理系统</h1>
+            <p>实时监控 · 智能检测 · 远程管理</p>
+        </header>
+        
+        <div class="status-bar">
+            <div class="status-item">
+                <div class="status-dot" id="statusDot"></div>
+                <span id="statusText">状态: 检查中...</span>
+            </div>
+            <div class="status-item">
+                <span>📁 可执行文件: <span id="exePath">检测中...</span></span>
+            </div>
+            <div class="control-buttons">
+                <button class="btn btn-primary" id="startBtn" onclick="startPush()">▶ 启动推流</button>
+                <button class="btn btn-danger" id="stopBtn" onclick="stopPush()" style="display:none;">⏹ 停止推流</button>
+                <button class="btn btn-secondary" onclick="refreshLog()">🔄 刷新日志</button>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <!-- 推流设置 -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>📡 推流设置</h2>
+                </div>
+                
+                <div class="section-title">视频采集</div>
+                <div class="form-group">
+                    <label>采集设备</label>
+                    <select id="deviceName">
+                        <option value="">-- 选择设备 --</option>
+                    </select>
+                    <button class="refresh-btn" onclick="refreshDevices()" title="刷新设备列表">🔄</button>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>采集分辨率 - 宽</label>
+                        <input type="number" id="captureWidth" value="640">
+                    </div>
+                    <div class="form-group">
+                        <label>采集分辨率 - 高</label>
+                        <input type="number" id="captureHeight" value="360">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>采集帧率</label>
+                    <input type="number" id="captureFramerate" value="24">
+                </div>
+                
+                <div class="section-title">RTSP 推流</div>
+                <div class="form-group">
+                    <label>RTSP 地址</label>
+                    <input type="text" id="rtspUrl" placeholder="rtsp://192.168.1.1:554/live/test">
+                </div>
+                
+                <div class="form-row-3">
+                    <div class="form-group">
+                        <label>推流分辨率 - 宽</label>
+                        <input type="number" id="pushWidth" value="1920">
+                    </div>
+                    <div class="form-group">
+                        <label>推流分辨率 - 高</label>
+                        <input type="number" id="pushHeight" value="1080">
+                    </div>
+                    <div class="form-group">
+                        <label>推流帧率</label>
+                        <input type="number" id="pushFramerate" value="24">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>视频码率 (bps)</label>
+                    <input type="number" id="videoBitrate" value="6000000">
+                    <p class="info-text">建议: 1080p=4-6Mbps, 720p=2-4Mbps</p>
+                </div>
+            </div>
+            
+            <!-- 检测与录制设置 -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>🎯 检测与录制</h2>
+                </div>
+                
+                <div class="section-title">目标检测</div>
+                <div class="form-group">
+                    <div class="switch-container">
+                        <label class="switch">
+                            <input type="checkbox" id="detectorEnabled" checked>
+                            <span class="slider"></span>
+                        </label>
+                        <span>启用目标检测</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>模型路径</label>
+                    <input type="text" id="modelPath" value="model/yolo11n.onnx">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>置信度阈值</label>
+                        <input type="number" id="confidenceThreshold" value="0.5" step="0.1" min="0.1" max="1.0">
+                    </div>
+                    <div class="form-group">
+                        <label>模型输入尺寸</label>
+                        <input type="number" id="modelInputSize" value="640">
+                    </div>
+                </div>
+                
+                <div class="section-title">本地录制</div>
+                <div class="form-group">
+                    <div class="switch-container">
+                        <label class="switch">
+                            <input type="checkbox" id="recorderEnabled" checked>
+                            <span class="slider"></span>
+                        </label>
+                        <span>启用本地录制</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>录制保存目录</label>
+                    <input type="text" id="outputDir" value="recordings">
+                </div>
+                
+                <div class="form-group">
+                    <label>人员离开后停止录制延迟 (毫秒)</label>
+                    <input type="number" id="personLeaveTimeout" value="3000">
+                    <p class="info-text">检测不到人后多久停止录制</p>
+                </div>
+            </div>
+            
+            <!-- 运行日志 -->
+            <div class="card full-width">
+                <div class="card-header">
+                    <h2>📋 运行日志</h2>
+                    <button class="btn btn-secondary" onclick="clearLog()">清空日志</button>
+                </div>
+                <div class="log-container" id="logContainer">
+                    <div class="log-line info">系统就绪，等待操作...</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 保存按钮 -->
+        <div style="text-align: center; margin-top: 30px;">
+            <button class="btn btn-primary" onclick="saveConfig()" style="padding: 15px 50px; font-size: 1.1em;">
+                💾 保存配置
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        // 页面加载时初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            loadConfig();
+            refreshDevices();
+            updateStatus();
+            
+            // 定时更新状态和日志
+            setInterval(updateStatus, 3000);
+            setInterval(refreshLog, 5000);
+        });
+        
+        // 加载配置
+        function loadConfig() {
+            fetch('/api/config')
+                .then(response => response.json())
+                .then(config => {
+                    // 推流设置
+                    document.getElementById('rtspUrl').value = config.push.rtsp_url || '';
+                    document.getElementById('pushWidth').value = config.push.video_width || 1920;
+                    document.getElementById('pushHeight').value = config.push.video_height || 1080;
+                    document.getElementById('pushFramerate').value = config.push.frame_rate || 24;
+                    document.getElementById('videoBitrate').value = config.push.video_bitrate || 6000000;
+                    
+                    // 采集设置
+                    document.getElementById('deviceName').value = config.capture.device_name || '';
+                    document.getElementById('captureWidth').value = config.capture.video_width || 640;
+                    document.getElementById('captureHeight').value = config.capture.video_height || 360;
+                    document.getElementById('captureFramerate').value = config.capture.framerate || 24;
+                    
+                    // 检测设置
+                    document.getElementById('detectorEnabled').checked = config.detector.enabled !== false;
+                    document.getElementById('modelPath').value = config.detector.model_path || 'model/yolo11n.onnx';
+                    document.getElementById('confidenceThreshold').value = config.detector.confidence_threshold || 0.5;
+                    document.getElementById('modelInputSize').value = config.detector.input_width || 640;
+                    
+                    // 录制设置
+                    document.getElementById('recorderEnabled').checked = config.recorder.enabled !== false;
+                    document.getElementById('outputDir').value = config.recorder.output_dir || 'recordings';
+                    document.getElementById('personLeaveTimeout').value = config.recorder.person_leave_timeout_ms || 3000;
+                })
+                .catch(error => {
+                    showToast('加载配置失败: ' + error.message, 'error');
+                });
+        }
+        
+        // 保存配置
+        function saveConfig() {
+            const config = {
+                push: {
+                    rtsp_url: document.getElementById('rtspUrl').value,
+                    video_width: parseInt(document.getElementById('pushWidth').value),
+                    video_height: parseInt(document.getElementById('pushHeight').value),
+                    frame_rate: parseInt(document.getElementById('pushFramerate').value),
+                    video_bitrate: parseInt(document.getElementById('videoBitrate').value)
+                },
+                capture: {
+                    device_name: document.getElementById('deviceName').value,
+                    input_format: 'dshow',
+                    video_width: parseInt(document.getElementById('captureWidth').value),
+                    video_height: parseInt(document.getElementById('captureHeight').value),
+                    framerate: parseInt(document.getElementById('captureFramerate').value)
+                },
+                detector: {
+                    enabled: document.getElementById('detectorEnabled').checked,
+                    model_path: document.getElementById('modelPath').value,
+                    confidence_threshold: parseFloat(document.getElementById('confidenceThreshold').value),
+                    input_width: parseInt(document.getElementById('modelInputSize').value),
+                    input_height: parseInt(document.getElementById('modelInputSize').value),
+                    classes: ['person']
+                },
+                recorder: {
+                    enabled: document.getElementById('recorderEnabled').checked,
+                    output_dir: document.getElementById('outputDir').value,
+                    person_leave_timeout_ms: parseInt(document.getElementById('personLeaveTimeout').value)
+                },
+                log: {
+                    level: 'info',
+                    debug_enabled: false
+                }
+            };
+            
+            fetch('/api/config', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(config)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showToast('配置已保存！', 'success');
+                } else {
+                    showToast('保存失败: ' + data.message, 'error');
+                }
+            })
+            .catch(error => {
+                showToast('保存失败: ' + error.message, 'error');
+            });
+        }
+        
+        // 刷新设备列表
+        function refreshDevices() {
+            fetch('/api/devices')
+                .then(response => response.json())
+                .then(devices => {
+                    const select = document.getElementById('deviceName');
+                    const currentValue = select.value;
+                    select.innerHTML = '<option value="">-- 选择设备 --</option>';
+                    
+                    devices.forEach(device => {
+                        const option = document.createElement('option');
+                        option.value = 'video=' + device;
+                        option.textContent = device;
+                        select.appendChild(option);
+                    });
+                    
+                    // 恢复之前选择的值
+                    if (currentValue) {
+                        select.value = currentValue;
+                    }
+                    
+                    showToast('设备列表已刷新', 'success');
+                })
+                .catch(error => {
+                    showToast('获取设备列表失败', 'error');
+                });
+        }
+        
+        // 启动推流
+        function startPush() {
+            saveConfig();
+            
+            fetch('/api/start', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showToast(data.message, 'success');
+                        updateStatus();
+                    } else {
+                        showToast(data.message, 'error');
+                    }
+                })
+                .catch(error => {
+                    showToast('启动失败: ' + error.message, 'error');
+                });
+        }
+        
+        // 停止推流
+        function stopPush() {
+            fetch('/api/stop', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showToast(data.message, 'success');
+                        updateStatus();
+                    } else {
+                        showToast(data.message, 'error');
+                    }
+                })
+                .catch(error => {
+                    showToast('停止失败: ' + error.message, 'error');
+                });
+        }
+        
+        // 更新状态
+        function updateStatus() {
+            fetch('/api/status')
+                .then(response => response.json())
+                .then(data => {
+                    const statusDot = document.getElementById('statusDot');
+                    const statusText = document.getElementById('statusText');
+                    const startBtn = document.getElementById('startBtn');
+                    const stopBtn = document.getElementById('stopBtn');
+                    const exePath = document.getElementById('exePath');
+                    
+                    if (data.exe_path) {
+                        exePath.textContent = data.exe_path;
+                    } else {
+                        exePath.textContent = '未找到';
+                    }
+                    
+                    if (data.status === 'running') {
+                        statusDot.className = 'status-dot running';
+                        statusText.textContent = '状态: 运行中';
+                        startBtn.style.display = 'none';
+                        stopBtn.style.display = 'inline-block';
+                    } else {
+                        statusDot.className = 'status-dot stopped';
+                        statusText.textContent = '状态: 已停止';
+                        startBtn.style.display = 'inline-block';
+                        stopBtn.style.display = 'none';
+                    }
+                });
+        }
+        
+        // 刷新日志
+        function refreshLog() {
+            fetch('/api/log')
+                .then(response => response.json())
+                .then(data => {
+                    const logContainer = document.getElementById('logContainer');
+                    const lines = data.log.split('\n');
+                    
+                    let html = '';
+                    lines.forEach(line => {
+                        let className = 'log-line';
+                        if (line.toLowerCase().includes('error') || line.toLowerCase().includes('failed')) {
+                            className += ' error';
+                        } else if (line.toLowerCase().includes('success') || line.toLowerCase().includes('loaded')) {
+                            className += ' success';
+                        } else if (line.toLowerCase().includes('info') || line.toLowerCase().includes('started')) {
+                            className += ' info';
+                        }
+                        html += `<div class="${className}">${escapeHtml(line)}</div>`;
+                    });
+                    
+                    logContainer.innerHTML = html || '<div class="log-line">暂无日志</div>';
+                    logContainer.scrollTop = logContainer.scrollHeight;
+                });
+        }
+        
+        // 清空日志
+        function clearLog() {
+            document.getElementById('logContainer').innerHTML = '<div class="log-line info">日志已清空</div>';
+        }
+        
+        // HTML转义
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        // 显示提示
+        function showToast(message, type) {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

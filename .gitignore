@@ -1,2 +1,5 @@
-./build
-./vscode
+.vs/
+.vscode/
+build/
+3rdparty/
+util/

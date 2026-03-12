@@ -1,0 +1,35 @@
+{
+    "push": {
+        "rtsp_url": "rtsp://192.168.1.1:554/live/test",
+        "video_width": 1920,
+        "video_height": 1080,
+        "frame_rate": 24,
+        "video_bitrate": 6000000
+    },
+    "capture": {
+        "device_name": "",
+        "input_format": "dshow",
+        "video_width": 640,
+        "video_height": 360,
+        "framerate": 24
+    },
+    "detector": {
+        "enabled": true,
+        "model_path": "model/yolo11n.onnx",
+        "confidence_threshold": 0.5,
+        "input_width": 640,
+        "input_height": 640,
+        "classes": [
+            "person"
+        ]
+    },
+    "recorder": {
+        "enabled": true,
+        "output_dir": "recordings",
+        "person_leave_timeout_ms": 3000
+    },
+    "log": {
+        "level": "info",
+        "debug_enabled": false
+    }
+}

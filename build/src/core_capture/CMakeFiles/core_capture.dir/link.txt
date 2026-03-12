@@ -1,2 +1,0 @@
-C:\MinGw\MinGW\bin\ar.exe qc ..\..\lib\libcore_capture.a CMakeFiles/core_capture.dir/video_capture.cpp.obj
-C:\MinGw\MinGW\bin\ranlib.exe ..\..\lib\libcore_capture.a

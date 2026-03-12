@@ -1,3 +1,0 @@
-"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\VideoPush.dir/objects.a
-C:\MinGw\MinGW\bin\ar.exe qc CMakeFiles\VideoPush.dir/objects.a @CMakeFiles\VideoPush.dir\objects1.rsp
-C:\MinGw\MinGW\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\VideoPush.dir/objects.a -Wl,--no-whole-archive -o bin\VideoPush.exe -Wl,--out-implib,lib\libVideoPush.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\VideoPush.dir\linkLibs.rsp

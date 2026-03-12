@@ -178,6 +178,30 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\VideoPush.dir\build.make CMakeFiles/VideoPush.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+src/core_libtorch/yolov11_torch.obj: src/core_libtorch/yolov11_torch.cpp.obj
+.PHONY : src/core_libtorch/yolov11_torch.obj
+
+# target to build an object file
+src/core_libtorch/yolov11_torch.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\VideoPush.dir\build.make CMakeFiles/VideoPush.dir/src/core_libtorch/yolov11_torch.cpp.obj
+.PHONY : src/core_libtorch/yolov11_torch.cpp.obj
+
+src/core_libtorch/yolov11_torch.i: src/core_libtorch/yolov11_torch.cpp.i
+.PHONY : src/core_libtorch/yolov11_torch.i
+
+# target to preprocess a source file
+src/core_libtorch/yolov11_torch.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\VideoPush.dir\build.make CMakeFiles/VideoPush.dir/src/core_libtorch/yolov11_torch.cpp.i
+.PHONY : src/core_libtorch/yolov11_torch.cpp.i
+
+src/core_libtorch/yolov11_torch.s: src/core_libtorch/yolov11_torch.cpp.s
+.PHONY : src/core_libtorch/yolov11_torch.s
+
+# target to generate assembly for a file
+src/core_libtorch/yolov11_torch.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\VideoPush.dir\build.make CMakeFiles/VideoPush.dir/src/core_libtorch/yolov11_torch.cpp.s
+.PHONY : src/core_libtorch/yolov11_torch.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -192,6 +216,9 @@ help:
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
+	@echo ... src/core_libtorch/yolov11_torch.obj
+	@echo ... src/core_libtorch/yolov11_torch.i
+	@echo ... src/core_libtorch/yolov11_torch.s
 .PHONY : help
 
 

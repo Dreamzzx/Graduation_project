@@ -3,10 +3,9 @@
 
 int main() {
     std::cout << "[BEGIN] main" << std::endl;
-    //HP Wide Vision HD Camera
-    //Integrated Camera
-    //LRCP 500W
-    ZPusher zpusher("video=LRCP 500W");
+    ZPusher zpusher;
+    zpusher.Init();
+    zpusher.start_Push();
     std::cin.get();
     return 0;
 }

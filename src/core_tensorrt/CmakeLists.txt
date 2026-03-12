@@ -1,0 +1,33 @@
+# core_pusher/CMakeLists.txt
+cmake_minimum_required(VERSION 3.10)
+
+# 定义模块库名称（建议和模块名一致，方便识别）
+set(ZPUSHER_MODULE_NAME core_tensorrt)
+
+set(CUDA_PATH "C:/cuda12")
+set(TENSORRT_PATH "D:/TensorRT-10.15.1.29")
+
+include_directories(
+    ${CUDA_PATH}/include
+    ${TENSORRT_PATH}/include
+    ${PROJECT_SOURCE_DIR}  # 模块自身头文件
+    ${CMAKE_SOURCE_DIR}/src  # 项目根目录头文件
+)
+
+link_directories(
+    ${CUDA_PATH}/lib/x64
+    ${TENSORRT_PATH}/lib
+)
+
+add_library(core_tensorrt STATIC
+    yolov11_trt.cpp
+    # 其他源文件...
+)
+
+target_include_directories(core_tensorrt
+    PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+# 设置C++标准（和主程序保持一致）
+target_compile_features(core_tensorrt PRIVATE cxx_std_17)
