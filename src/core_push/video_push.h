@@ -90,6 +90,7 @@ private:
     int frame_count = 0;
     const AVRational src_time_base = { 1, 90000 };
     int64_t frame_duration;
+    int64_t start_time_ms = 0;
 
     int idr_count = 0;
     int sps_pps_injected = 0;

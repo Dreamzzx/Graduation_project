@@ -9,6 +9,12 @@ VideoRecorder::VideoRecorder() {
 
 VideoRecorder::~VideoRecorder() {
     stop();
+    if (hw_device_ctx) {
+        av_buffer_unref(&hw_device_ctx);
+    }
+    if (hw_frames_ctx) {
+        av_buffer_unref(&hw_frames_ctx);
+    }
 }
 
 bool VideoRecorder::Init(const RecordingConfig& config) {
@@ -47,7 +53,16 @@ bool VideoRecorder::startRecording() {
         return false;
     }
     
-    codec = avcodec_find_encoder(AV_CODEC_ID_H264);
+    codec = avcodec_find_encoder_by_name("h264_nvenc");
+    if (codec) {
+        use_hw_encoder = true;
+        std::cout << "[Recorder] Using NVENC hardware encoder" << std::endl;
+    } else {
+        codec = avcodec_find_encoder(AV_CODEC_ID_H264);
+        use_hw_encoder = false;
+        std::cout << "[Recorder] NVENC not available, using CPU encoder" << std::endl;
+    }
+    
     if (!codec) {
         std::cerr << "[Recorder] H264 encoder not found" << std::endl;
         avformat_free_context(fmt_ctx);
@@ -67,17 +82,40 @@ bool VideoRecorder::startRecording() {
     codec_ctx->height = config_.height;
     codec_ctx->time_base = {1, 90000};
     codec_ctx->framerate = {config_.fps, 1};
-    codec_ctx->pix_fmt = AV_PIX_FMT_YUV420P;
     codec_ctx->bit_rate = config_.bitrate;
     codec_ctx->gop_size = config_.fps * 2;
     codec_ctx->max_b_frames = 0;
-    codec_ctx->thread_count = 4;
+    
+    if (use_hw_encoder) {
+        codec_ctx->pix_fmt = AV_PIX_FMT_CUDA;
+        
+        if (!initHardwareEncoder()) {
+            std::cerr << "[Recorder] Failed to init hardware encoder, falling back to CPU" << std::endl;
+            use_hw_encoder = false;
+            codec_ctx->pix_fmt = AV_PIX_FMT_YUV420P;
+        }
+    } else {
+        codec_ctx->pix_fmt = AV_PIX_FMT_YUV420P;
+        codec_ctx->thread_count = 4;
+    }
     
     if (fmt_ctx->oformat->flags & AVFMT_GLOBALHEADER) {
         codec_ctx->flags |= AV_CODEC_FLAG_GLOBAL_HEADER;
     }
     
-    ret = avcodec_open2(codec_ctx, codec, nullptr);
+    AVDictionary* codec_opts = nullptr;
+    if (use_hw_encoder) {
+        av_dict_set(&codec_opts, "preset", "p1", 0);
+        av_dict_set(&codec_opts, "tune", "ull", 0);
+        av_dict_set(&codec_opts, "rc", "cbr", 0);
+        av_dict_set(&codec_opts, "zerolatency", "1", 0);
+    } else {
+        av_dict_set(&codec_opts, "preset", "ultrafast", 0);
+        av_dict_set(&codec_opts, "tune", "zerolatency", 0);
+    }
+    
+    ret = avcodec_open2(codec_ctx, codec, &codec_opts);
+    av_dict_free(&codec_opts);
     if (ret < 0) {
         std::cerr << "[Recorder] Failed to open codec" << std::endl;
         avcodec_free_context(&codec_ctx);
@@ -125,7 +163,7 @@ bool VideoRecorder::startRecording() {
     
     sws_ctx = sws_getContext(
         config_.width, config_.height, AV_PIX_FMT_BGR24,
-        config_.width, config_.height, AV_PIX_FMT_YUV420P,
+        config_.width, config_.height, AV_PIX_FMT_NV12,
         SWS_BILINEAR, nullptr, nullptr, nullptr);
     
     if (!sws_ctx) {
@@ -141,10 +179,20 @@ bool VideoRecorder::startRecording() {
     }
     
     yuv_frame = av_frame_alloc();
-    yuv_frame->format = AV_PIX_FMT_YUV420P;
+    yuv_frame->format = AV_PIX_FMT_NV12;
     yuv_frame->width = config_.width;
     yuv_frame->height = config_.height;
     av_frame_get_buffer(yuv_frame, 0);
+    
+    if (use_hw_encoder) {
+        hw_frame = av_frame_alloc();
+        hw_frame->format = AV_PIX_FMT_CUDA;
+        hw_frame->width = config_.width;
+        hw_frame->height = config_.height;
+        if (av_hwframe_get_buffer(hw_frames_ctx, hw_frame, 0) < 0) {
+            std::cerr << "[Recorder] Failed to allocate hw frame" << std::endl;
+        }
+    }
     
     pkt = av_packet_alloc();
     
@@ -152,8 +200,42 @@ bool VideoRecorder::startRecording() {
     start_time_ms = 0;
     
     is_recording.store(true);
-    std::cout << "[Recorder] Started recording: " << current_filename << std::endl;
+    std::cout << "[Recorder] Started recording: " << current_filename 
+              << " (" << (use_hw_encoder ? "GPU" : "CPU") << " encoding)" << std::endl;
     
+    return true;
+}
+
+bool VideoRecorder::initHardwareEncoder() {
+    int ret = av_hwdevice_ctx_create(&hw_device_ctx, AV_HWDEVICE_TYPE_CUDA, nullptr, nullptr, 0);
+    if (ret < 0) {
+        std::cerr << "[Recorder] Failed to create CUDA device context" << std::endl;
+        return false;
+    }
+    
+    codec_ctx->hw_device_ctx = av_buffer_ref(hw_device_ctx);
+    
+    hw_frames_ctx = av_hwframe_ctx_alloc(hw_device_ctx);
+    if (!hw_frames_ctx) {
+        std::cerr << "[Recorder] Failed to allocate hw frames context" << std::endl;
+        return false;
+    }
+    
+    AVHWFramesContext* frames_ctx = (AVHWFramesContext*)hw_frames_ctx->data;
+    frames_ctx->format = AV_PIX_FMT_CUDA;
+    frames_ctx->sw_format = AV_PIX_FMT_NV12;
+    frames_ctx->width = config_.width;
+    frames_ctx->height = config_.height;
+    frames_ctx->initial_pool_size = 4;
+    
+    ret = av_hwframe_ctx_init(hw_frames_ctx);
+    if (ret < 0) {
+        std::cerr << "[Recorder] Failed to init hw frames context" << std::endl;
+        av_buffer_unref(&hw_frames_ctx);
+        return false;
+    }
+    
+    codec_ctx->hw_frames_ctx = av_buffer_ref(hw_frames_ctx);
     return true;
 }
 
@@ -188,6 +270,11 @@ void VideoRecorder::stopRecording() {
         yuv_frame = nullptr;
     }
     
+    if (hw_frame) {
+        av_frame_free(&hw_frame);
+        hw_frame = nullptr;
+    }
+    
     if (pkt) {
         av_packet_free(&pkt);
         pkt = nullptr;
@@ -207,7 +294,7 @@ void VideoRecorder::stopRecording() {
     double duration_sec = static_cast<double>(frame_count) / config_.fps;
     std::cout << "[Recorder] Stopped recording: " << current_filename 
               << " (frames: " << frame_count 
-              << ", expected duration: " << std::fixed << std::setprecision(1) << duration_sec << "s)" 
+              << ", duration: " << std::fixed << std::setprecision(1) << duration_sec << "s)" 
               << std::endl;
     
     start_time_ms = 0;
@@ -230,14 +317,29 @@ bool VideoRecorder::writeFrame(const cv::Mat& frame) {
     const uint8_t* src_data[1] = { frame.data };
     int src_linesize[1] = { static_cast<int>(frame.step) };
     
+    if (av_frame_make_writable(yuv_frame) < 0) {
+        std::cerr << "[Recorder] Failed to make frame writable" << std::endl;
+        return false;
+    }
+    
     sws_scale(sws_ctx, src_data, src_linesize, 0, frame.rows,
               yuv_frame->data, yuv_frame->linesize);
     
-    yuv_frame->pts = elapsed_ms * 90;
-    yuv_frame->key_frame = 0;
-    yuv_frame->pict_type = AV_PICTURE_TYPE_NONE;
+    AVFrame* encode_frame = yuv_frame;
     
-    int ret = avcodec_send_frame(codec_ctx, yuv_frame);
+    if (use_hw_encoder && hw_frame) {
+        if (av_hwframe_transfer_data(hw_frame, yuv_frame, 0) < 0) {
+            std::cerr << "[Recorder] Failed to transfer frame to GPU" << std::endl;
+            return false;
+        }
+        encode_frame = hw_frame;
+    }
+    
+    encode_frame->pts = elapsed_ms * 90;
+    encode_frame->key_frame = 0;
+    encode_frame->pict_type = AV_PICTURE_TYPE_NONE;
+    
+    int ret = avcodec_send_frame(codec_ctx, encode_frame);
     if (ret < 0) {
         std::cerr << "[Recorder] Error sending frame to encoder" << std::endl;
         return false;

@@ -1,4 +1,5 @@
 #include "video_push.h"
+#include <chrono>
 
 FFmpegPush::FFmpegPush()
 {
@@ -90,7 +91,7 @@ bool FFmpegPush::init_codec_ctx(){
     codec_ctx->framerate = { video_fps, 1 };
     codec_ctx->max_b_frames = 0;
     codec_ctx->pix_fmt = AV_PIX_FMT_CUDA;
-    codec_ctx->gop_size = 15;
+    codec_ctx->gop_size = video_fps;
     codec_ctx->flags |= AV_CODEC_FLAG_GLOBAL_HEADER;
 
     codec_ctx->hw_device_ctx = av_buffer_ref(hw_device_ctx);
@@ -98,12 +99,15 @@ bool FFmpegPush::init_codec_ctx(){
     AVDictionary *codec_opts = nullptr;
 
     if (strcmp(codec->name, "h264_nvenc") == 0) {
-        av_opt_set(codec_ctx->priv_data, "preset", "p4", 0);
+        av_opt_set(codec_ctx->priv_data, "preset", "p1", 0);
+        av_opt_set(codec_ctx->priv_data, "tune", "ull", 0);
         av_opt_set(codec_ctx->priv_data, "rc", "cbr", 0);
         av_opt_set(codec_ctx->priv_data, "delay", "0", 0);
         av_opt_set(codec_ctx->priv_data, "repeat_header", "1", 0);
         av_opt_set(codec_ctx->priv_data, "forced-idr", "1", 0);
-        std::cout << "[NVENC] Configured with preset=p4, rc=cbr, delay=0" << std::endl;
+        av_opt_set(codec_ctx->priv_data, "zerolatency", "1", 0);
+        av_opt_set(codec_ctx->priv_data, "gpu_copy", "on", 0);
+        std::cout << "[NVENC] Configured for ultra-low latency (preset=p1, tune=ull)" << std::endl;
     }
     else if (strcmp(codec->name, "libx264") == 0) {
         av_opt_set(codec_ctx->priv_data, "preset", "fast", 0);
@@ -122,7 +126,7 @@ bool FFmpegPush::init_codec_ctx(){
     frames_ctx->sw_format = AV_PIX_FMT_NV12;
     frames_ctx->width = 1920;
     frames_ctx->height = 1080;
-    frames_ctx->initial_pool_size = 10;   
+    frames_ctx->initial_pool_size = 2;   
 
     if (av_hwframe_ctx_init(hw_frames_ctx) < 0) {
         std::cerr << "Failed to initialize hardware frame context" << std::endl;
@@ -197,7 +201,7 @@ bool FFmpegPush::init_swscale_ctx(){
     sws_ctx = sws_getContext(
         video_width, video_height, AV_PIX_FMT_BGR24,
         video_width, video_height, AV_PIX_FMT_NV12,
-        SWS_BILINEAR, nullptr, nullptr, nullptr);
+        SWS_FAST_BILINEAR, nullptr, nullptr, nullptr);
 
     if(sws_ctx == nullptr){
         std::cerr << "Create swscale context failed:" << push_url << std::endl;
@@ -231,7 +235,15 @@ void FFmpegPush::pushFrame(FrameData frame_data) {
 
     if (!convert_bgr_to_nv12(bgr_frame)) return;
 
-    current_pts += frame_duration;
+    auto now = std::chrono::steady_clock::now();
+    auto now_ms = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()).count();
+    
+    if (start_time_ms == 0) {
+        start_time_ms = now_ms;
+    }
+    
+    int64_t elapsed_ms = now_ms - start_time_ms;
+    current_pts = elapsed_ms * 90;
     frame_count++;
 
     if (!encode_and_send_frame(current_pts, frame_count)) return;
@@ -276,8 +288,9 @@ bool FFmpegPush::init_frames() {
 bool FFmpegPush::write_rtsp_header() {
     AVDictionary* opts = nullptr;
     av_dict_set(&opts, "rtsp_transport", "tcp", 0);
-    av_dict_set(&opts, "stimeout", "5000000", 0);
-    av_dict_set(&opts, "max_delay", "500000", 0);
+    av_dict_set(&opts, "stimeout", "1000000", 0);
+    av_dict_set(&opts, "max_delay", "0", 0);
+    av_dict_set(&opts, "buffer_size", "1024000", 0);
 
     int ret = avformat_write_header(fmt_ctx, &opts);
     if (ret < 0) {

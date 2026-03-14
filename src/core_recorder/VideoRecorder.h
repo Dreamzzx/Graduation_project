@@ -10,6 +10,8 @@ extern "C" {
 #include <libavformat/avformat.h>
 #include <libavcodec/avcodec.h>
 #include <libswscale/swscale.h>
+#include <libavutil/hwcontext.h>
+#include <libavutil/hwcontext_cuda.h>
 }
 
 struct RecordingConfig {
@@ -40,6 +42,7 @@ private:
     void stopRecording();
     bool writeFrame(const cv::Mat& frame);
     std::string generateFilename();
+    bool initHardwareEncoder();
 
 private:
     static constexpr AVRational MPEG_TIME_BASE = {1, 90000};
@@ -52,7 +55,12 @@ private:
     AVStream* video_stream = nullptr;
     SwsContext* sws_ctx = nullptr;
     AVFrame* yuv_frame = nullptr;
+    AVFrame* hw_frame = nullptr;
     AVPacket* pkt = nullptr;
+    AVBufferRef* hw_device_ctx = nullptr;
+    AVBufferRef* hw_frames_ctx = nullptr;
+    
+    bool use_hw_encoder = false;
     
     std::atomic<bool> is_recording{false};
     std::atomic<bool> should_stop{false};

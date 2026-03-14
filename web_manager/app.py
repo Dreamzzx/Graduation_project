@@ -2,7 +2,7 @@
 # 运行此文件启动Web管理界面
 # 前端地址: http://localhost:5000
 
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, Response
 import os
 import json
 import subprocess
@@ -10,21 +10,28 @@ import threading
 import glob
 import sys
 import re
+import psutil
+import time
+import platform
 
 app = Flask(__name__)
 
-# 获取项目根目录
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CONFIG_FILE = os.path.join(PROJECT_ROOT, "config.json")
 PROCESS = None
 LOG_FILE = os.path.join(PROJECT_ROOT, "push_manager.log")
+
+SYSTEM_STATS = {
+    "start_time": time.time(),
+    "total_frames": 0,
+    "total_detections": 0
+}
 
 def get_video_devices():
     """获取可用视频设备"""
     devices = []
     
     try:
-        # 使用 ffmpeg 列出 dshow 设备
         result = subprocess.run(
             ["ffmpeg", "-list_devices", "true", "-f", "dshow", "-i", "dummy"],
             capture_output=True,
@@ -33,19 +40,16 @@ def get_video_devices():
             creationflags=subprocess.CREATE_NO_WINDOW if sys.platform == 'win32' else 0
         )
         
-        # ffmpeg 输出在 stderr 中
         output = result.stderr
         print(f"FFmpeg output:\n{output}")
         
         lines = output.split('\n')
         
         for line in lines:
-            # 匹配格式: [dshow @ ...]  "Device Name" (video)
             if '(video)' in line:
                 match = re.search(r'"([^"]+)"', line)
                 if match:
                     device_name = match.group(1).strip()
-                    # 排除 @device 备注和重复项
                     if device_name and '@' not in device_name and device_name not in devices:
                         devices.append(device_name)
                         print(f"Found device: {device_name}")
@@ -60,6 +64,62 @@ def get_video_devices():
         traceback.print_exc()
     
     return devices
+
+def get_device_capabilities(device_name):
+    """获取设备支持的分辨率和帧率"""
+    capabilities = {
+        "resolutions": [],
+        "framerates": [],
+        "default_resolution": None,
+        "default_framerate": None
+    }
+    
+    try:
+        result = subprocess.run(
+            ["ffmpeg", "-f", "dshow", "-list_options", "true", "-i", f"video={device_name}"],
+            capture_output=True,
+            text=True,
+            timeout=15,
+            creationflags=subprocess.CREATE_NO_WINDOW if sys.platform == 'win32' else 0
+        )
+        
+        output = result.stderr
+        
+        resolutions = set()
+        framerates = set()
+        
+        lines = output.split('\n')
+        for line in lines:
+            if 'vcodec=mjpeg' in line.lower() or 'pixel_format' in line.lower():
+                resolution_match = re.search(r'(\d+)x(\d+)', line)
+                fps_match = re.search(r'fps=(\d+)', line)
+                
+                if resolution_match:
+                    width = int(resolution_match.group(1))
+                    height = int(resolution_match.group(2))
+                    resolutions.add((width, height))
+                
+                if fps_match:
+                    fps = int(fps_match.group(1))
+                    framerates.add(fps)
+        
+        resolutions = sorted(resolutions, key=lambda x: x[0] * x[1], reverse=True)
+        framerates = sorted(framerates, reverse=True)
+        
+        capabilities["resolutions"] = [{"width": w, "height": h, "label": f"{w}x{h}"} for w, h in resolutions]
+        capabilities["framerates"] = list(framerates)
+        
+        if resolutions:
+            capabilities["default_resolution"] = {"width": resolutions[0][0], "height": resolutions[0][1]}
+        if framerates:
+            capabilities["default_framerate"] = framerates[0]
+            
+    except subprocess.TimeoutExpired:
+        print(f"获取设备 {device_name} 参数超时")
+    except Exception as e:
+        print(f"获取设备 {device_name} 参数失败: {e}")
+    
+    return capabilities
 
 def load_config():
     """加载配置文件"""
@@ -192,6 +252,108 @@ def get_log_content():
             return content
     return ""
 
+def get_system_info():
+    """获取系统资源信息"""
+    cpu_percent = psutil.cpu_percent(interval=0.5)
+    memory = psutil.virtual_memory()
+    disk = psutil.disk_usage('/')
+    if sys.platform == 'win32':
+        for partition in psutil.disk_partitions():
+            if 'C:\\' in partition.mountpoint or partition.mountpoint == '\\':
+                disk = psutil.disk_usage(partition.mountpoint)
+                break
+    
+    gpu_info = get_gpu_info()
+    
+    process_info = None
+    if PROCESS and PROCESS.poll() is None:
+        try:
+            p = psutil.Process(PROCESS.pid)
+            process_info = {
+                "cpu_percent": p.cpu_percent(interval=0.1),
+                "memory_mb": p.memory_info().rss / 1024 / 1024,
+                "threads": p.num_threads()
+            }
+        except:
+            pass
+    
+    uptime = time.time() - SYSTEM_STATS["start_time"]
+    
+    return {
+        "cpu": {
+            "percent": cpu_percent,
+            "cores": psutil.cpu_count(),
+            "physical_cores": psutil.cpu_count(logical=False)
+        },
+        "memory": {
+            "total_gb": round(memory.total / 1024 / 1024 / 1024, 2),
+            "used_gb": round(memory.used / 1024 / 1024 / 1024, 2),
+            "percent": memory.percent,
+            "available_gb": round(memory.available / 1024 / 1024 / 1024, 2)
+        },
+        "disk": {
+            "total_gb": round(disk.total / 1024 / 1024 / 1024, 2),
+            "used_gb": round(disk.used / 1024 / 1024 / 1024, 2),
+            "percent": disk.percent,
+            "free_gb": round(disk.free / 1024 / 1024 / 1024, 2)
+        },
+        "gpu": gpu_info,
+        "process": process_info,
+        "uptime": round(uptime, 1),
+        "platform": {
+            "system": platform.system(),
+            "node": platform.node(),
+            "processor": platform.processor()
+        }
+    }
+
+def get_gpu_info():
+    """获取 GPU 信息"""
+    gpu_info = {"available": False, "name": "N/A", "memory_used": 0, "memory_total": 0, "utilization": 0}
+    
+    try:
+        result = subprocess.run(
+            ['nvidia-smi', '--query-gpu=name,memory.used,memory.total,utilization.gpu', '--format=csv,noheader,nounits'],
+            capture_output=True,
+            text=True,
+            timeout=5,
+            creationflags=subprocess.CREATE_NO_WINDOW if sys.platform == 'win32' else 0
+        )
+        
+        if result.returncode == 0:
+            lines = result.stdout.strip().split('\n')
+            if lines:
+                parts = lines[0].split(',')
+                if len(parts) >= 4:
+                    gpu_info["available"] = True
+                    gpu_info["name"] = parts[0].strip()
+                    gpu_info["memory_used"] = float(parts[1].strip())
+                    gpu_info["memory_total"] = float(parts[2].strip())
+                    gpu_info["utilization"] = float(parts[3].strip())
+    except:
+        pass
+    
+    return gpu_info
+
+def get_recordings():
+    """获取录制文件列表"""
+    config = load_config()
+    output_dir = os.path.join(PROJECT_ROOT, config.get("recorder", {}).get("output_dir", "recordings"))
+    
+    recordings = []
+    if os.path.exists(output_dir):
+        for file in glob.glob(os.path.join(output_dir, "*.mp4")):
+            stat = os.stat(file)
+            recordings.append({
+                "name": os.path.basename(file),
+                "size_mb": round(stat.st_size / 1024 / 1024, 2),
+                "created": time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(stat.st_ctime)),
+                "path": file
+            })
+    
+    recordings.sort(key=lambda x: x["created"], reverse=True)
+    return recordings
+
 # ==================== 路由 ====================
 
 @app.route('/')
@@ -225,6 +387,12 @@ def api_devices():
     print(f"API returning devices: {devices}")
     return jsonify(devices)
 
+@app.route('/api/device_capabilities/<path:device_name>')
+def api_device_capabilities(device_name):
+    """获取设备支持的分辨率和帧率"""
+    capabilities = get_device_capabilities(device_name)
+    return jsonify(capabilities)
+
 @app.route('/api/start', methods=['POST'])
 def api_start():
     """启动推流"""
@@ -250,6 +418,31 @@ def api_log():
     """获取日志"""
     return jsonify({"log": get_log_content()})
 
+@app.route('/api/system')
+def api_system():
+    """获取系统资源信息"""
+    return jsonify(get_system_info())
+
+@app.route('/api/recordings')
+def api_recordings():
+    """获取录制文件列表"""
+    return jsonify(get_recordings())
+
+@app.route('/api/stream_url')
+def api_stream_url():
+    """获取推流地址"""
+    config = load_config()
+    rtsp_url = config.get("push", {}).get("rtsp_url", "")
+    http_flv_url = ""
+    if rtsp_url:
+        http_flv_url = rtsp_url.replace("rtsp://", "http://").replace(":554/", ":8080/")
+        if not http_flv_url.endswith(".flv"):
+            http_flv_url = http_flv_url.rstrip("/") + ".flv"
+    return jsonify({
+        "rtsp_url": rtsp_url,
+        "http_flv_url": http_flv_url
+    })
+
 if __name__ == '__main__':
     print("=" * 50)
     print("视频推流管理系统")
@@ -258,7 +451,6 @@ if __name__ == '__main__':
     print(f"配置文件: {CONFIG_FILE}")
     print(f"可执行文件: {get_executable_path()}")
     
-    # 测试获取设备
     print("检测到的视频设备:")
     for device in get_video_devices():
         print(f"  - {device}")
@@ -266,4 +458,4 @@ if __name__ == '__main__':
     print("前端地址: http://localhost:5000")
     print("=" * 50)
     
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True, threaded=True)

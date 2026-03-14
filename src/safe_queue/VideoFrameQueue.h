@@ -53,6 +53,40 @@ public:
         return data;
     }
 
+    std::optional<T> PopWithTimeout(bool& is_running, int timeout_ms = 100) {
+        std::unique_lock<std::mutex> lock(mtx);
+        if (!cv.wait_for(lock, std::chrono::milliseconds(timeout_ms), 
+            [&]() { return !queue.empty() || !is_running; })) {
+            return std::nullopt;
+        }
+
+        if (!is_running && queue.empty()) {
+            return std::nullopt;
+        }
+
+        T data = std::move(queue.front());
+        queue.pop();
+        return data;
+    }
+
+    std::optional<T> PopLatestNonBlocking(bool& is_running) {
+        std::unique_lock<std::mutex> lock(mtx);
+        
+        if (!is_running && queue.empty()) {
+            return std::nullopt;
+        }
+        
+        if (queue.empty()) {
+            return std::nullopt;
+        }
+        
+        T data = std::move(queue.back());
+        while (!queue.empty()) {
+            queue.pop();
+        }
+        return data;
+    }
+
     std::optional<T> TryPop() {
         std::lock_guard<std::mutex> lock(mtx);
         if (queue.empty()) {

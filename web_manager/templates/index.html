@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>视频推流管理系统</title>
+    <script src="https://cdn.jsdelivr.net/npm/flv.js@1.6.2/dist/flv.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@1.4.12/dist/hls.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -12,14 +14,14 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             min-height: 100vh;
             color: #fff;
         }
         
         .container {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -27,12 +29,13 @@
         header {
             text-align: center;
             padding: 30px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
             margin-bottom: 30px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 15px;
         }
         
         header h1 {
-            font-size: 2.5em;
+            font-size: 2.2em;
             background: linear-gradient(90deg, #00d4ff, #00ff88);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -48,10 +51,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(255,255,255,0.05);
             padding: 15px 25px;
-            border-radius: 10px;
-            margin-bottom: 30px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
         
         .status-item {
@@ -64,17 +69,12 @@
             width: 12px;
             height: 12px;
             border-radius: 50%;
+            background: #ff4757;
             animation: pulse 2s infinite;
         }
         
         .status-dot.running {
             background: #00ff88;
-            box-shadow: 0 0 10px #00ff88;
-        }
-        
-        .status-dot.stopped {
-            background: #ff4757;
-            box-shadow: 0 0 10px #ff4757;
         }
         
         @keyframes pulse {
@@ -84,11 +84,12 @@
         
         .control-buttons {
             display: flex;
-            gap: 15px;
+            gap: 10px;
+            flex-wrap: wrap;
         }
         
         .btn {
-            padding: 12px 30px;
+            padding: 12px 25px;
             border: none;
             border-radius: 8px;
             font-size: 1em;
@@ -133,7 +134,7 @@
             gap: 25px;
         }
         
-        @media (max-width: 1200px) {
+        @media (max-width: 1400px) {
             .main-content {
                 grid-template-columns: 1fr;
             }
@@ -160,6 +161,155 @@
             color: #00d4ff;
         }
         
+        .full-width {
+            grid-column: 1 / -1;
+        }
+        
+        /* 视频预览区域 */
+        .video-preview {
+            background: #000;
+            border-radius: 10px;
+            aspect-ratio: 16/9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .video-preview video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .video-preview .placeholder {
+            color: #666;
+            text-align: center;
+        }
+        
+        .video-preview .placeholder .icon {
+            font-size: 4em;
+            margin-bottom: 15px;
+        }
+        
+        .video-overlay {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.7);
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 0.85em;
+        }
+        
+        .video-overlay .live-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #ff4757;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 1s infinite;
+        }
+        
+        .video-overlay .live-dot.active {
+            background: #00ff88;
+        }
+        
+        /* 系统监控区域 */
+        .monitor-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .monitor-item {
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            padding: 15px;
+        }
+        
+        .monitor-item .label {
+            color: #888;
+            font-size: 0.85em;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .monitor-item .value {
+            font-size: 1.8em;
+            font-weight: 600;
+            color: #fff;
+        }
+        
+        .monitor-item .value.warning {
+            color: #ffa502;
+        }
+        
+        .monitor-item .value.danger {
+            color: #ff4757;
+        }
+        
+        .monitor-item .value.good {
+            color: #00ff88;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        
+        .progress-bar .fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+        
+        .progress-bar .fill.cpu {
+            background: linear-gradient(90deg, #00d4ff, #00ff88);
+        }
+        
+        .progress-bar .fill.memory {
+            background: linear-gradient(90deg, #a55eea, #8854d0);
+        }
+        
+        .progress-bar .fill.disk {
+            background: linear-gradient(90deg, #ffa502, #ff6b81);
+        }
+        
+        .progress-bar .fill.gpu {
+            background: linear-gradient(90deg, #2ed573, #1e90ff);
+        }
+        
+        /* GPU 信息卡片 */
+        .gpu-card {
+            background: linear-gradient(135deg, rgba(46, 213, 115, 0.1), rgba(30, 144, 255, 0.1));
+            border: 1px solid rgba(46, 213, 115, 0.3);
+        }
+        
+        .gpu-name {
+            font-size: 0.9em;
+            color: #2ed573;
+            margin-bottom: 10px;
+        }
+        
+        /* 进程信息 */
+        .process-info {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+        
+        .process-info .label {
+            color: #00d4ff;
+        }
+        
+        /* 表单样式 */
         .form-group {
             margin-bottom: 20px;
         }
@@ -256,11 +406,30 @@
             transform: translateX(24px);
         }
         
+        .section-title {
+            font-size: 1.1em;
+            color: #00ff88;
+            margin: 20px 0 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .section-title:first-child {
+            margin-top: 0;
+        }
+        
+        .info-text {
+            color: #666;
+            font-size: 0.85em;
+            margin-top: 5px;
+        }
+        
+        /* 日志区域 */
         .log-container {
             background: rgba(0,0,0,0.3);
             border-radius: 8px;
             padding: 15px;
-            height: 300px;
+            height: 250px;
             overflow-y: auto;
             font-family: 'Consolas', 'Monaco', monospace;
             font-size: 0.85em;
@@ -297,10 +466,33 @@
             color: #00d4ff;
         }
         
-        .full-width {
-            grid-column: 1 / -1;
+        /* 录制文件列表 */
+        .recordings-list {
+            max-height: 200px;
+            overflow-y: auto;
         }
         
+        .recording-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .recording-item .name {
+            color: #fff;
+            font-size: 0.9em;
+        }
+        
+        .recording-item .meta {
+            color: #888;
+            font-size: 0.8em;
+        }
+        
+        /* Toast 提示 */
         .toast {
             position: fixed;
             bottom: 30px;
@@ -347,36 +539,23 @@
             transform: rotate(180deg);
         }
         
-        .section-title {
-            font-size: 1.1em;
-            color: #00ff88;
-            margin: 20px 0 15px 0;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+        /* 保存按钮区域 */
+        .save-section {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
         }
         
-        .section-title:first-child {
-            margin-top: 0;
-        }
-        
-        .info-text {
-            color: #666;
-            font-size: 0.85em;
-            margin-top: 5px;
-        }
-        
-        .device-status {
+        /* RTSP 播放器 */
+        .stream-controls {
             display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px;
-            background: rgba(0,0,0,0.2);
-            border-radius: 8px;
-            margin-bottom: 15px;
+            gap: 10px;
+            margin-top: 15px;
         }
         
-        .device-status .icon {
-            font-size: 1.5em;
+        .stream-url-input {
+            flex: 1;
         }
     </style>
 </head>
@@ -403,6 +582,97 @@
         </div>
         
         <div class="main-content">
+            <!-- 视频预览 -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>🎥 视频流预览</h2>
+                    <button class="refresh-btn" onclick="connectStream()" title="连接视频流">🔄</button>
+                </div>
+                
+                <div class="video-preview" id="videoPreview">
+                    <div class="placeholder">
+                        <div class="icon">📺</div>
+                        <p>点击"连接视频流"开始预览</p>
+                        <p style="font-size: 0.8em; margin-top: 10px;">支持 HTTP-FLV / HLS 流</p>
+                        <p style="font-size: 0.75em; margin-top: 8px; color: #555;">RTSP 需通过流媒体服务器转换为 HTTP-FLV</p>
+                    </div>
+                </div>
+                
+                <div class="stream-controls">
+                    <div class="form-group stream-url-input" style="margin-bottom: 0;">
+                        <input type="text" id="streamUrl" placeholder="http://localhost:8080/live/test.flv 或 .m3u8 地址">
+                    </div>
+                    <button class="btn btn-primary" onclick="connectStream()">连接</button>
+                    <button class="btn btn-secondary" onclick="disconnectStream()">断开</button>
+                </div>
+            </div>
+            
+            <!-- 系统资源监控 -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>📊 系统资源监控</h2>
+                    <span id="updateTime" style="color: #888; font-size: 0.85em;"></span>
+                </div>
+                
+                <div class="monitor-grid">
+                    <!-- CPU -->
+                    <div class="monitor-item">
+                        <div class="label">🖥️ CPU 使用率</div>
+                        <div class="value" id="cpuValue">--</div>
+                        <div class="progress-bar">
+                            <div class="fill cpu" id="cpuBar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- 内存 -->
+                    <div class="monitor-item">
+                        <div class="label">💾 内存使用</div>
+                        <div class="value" id="memoryValue">--</div>
+                        <div class="progress-bar">
+                            <div class="fill memory" id="memoryBar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- 磁盘 -->
+                    <div class="monitor-item">
+                        <div class="label">💿 磁盘使用</div>
+                        <div class="value" id="diskValue">--</div>
+                        <div class="progress-bar">
+                            <div class="fill disk" id="diskBar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- GPU -->
+                    <div class="monitor-item gpu-card" id="gpuCard">
+                        <div class="label">🎮 GPU</div>
+                        <div class="gpu-name" id="gpuName">检测中...</div>
+                        <div class="value" id="gpuValue">--</div>
+                        <div class="progress-bar">
+                            <div class="fill gpu" id="gpuBar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 进程信息 -->
+                <div class="monitor-item process-info" style="margin-top: 15px;" id="processInfo">
+                    <div class="label">⚡ 推流进程</div>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 10px;">
+                        <div>
+                            <div style="color: #888; font-size: 0.8em;">CPU</div>
+                            <div class="value" style="font-size: 1.2em;" id="processCpu">--</div>
+                        </div>
+                        <div>
+                            <div style="color: #888; font-size: 0.8em;">内存</div>
+                            <div class="value" style="font-size: 1.2em;" id="processMemory">--</div>
+                        </div>
+                        <div>
+                            <div style="color: #888; font-size: 0.8em;">线程数</div>
+                            <div class="value" style="font-size: 1.2em;" id="processThreads">--</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
             <!-- 推流设置 -->
             <div class="card">
                 <div class="card-header">
@@ -412,26 +682,34 @@
                 <div class="section-title">视频采集</div>
                 <div class="form-group">
                     <label>采集设备</label>
-                    <select id="deviceName">
-                        <option value="">-- 选择设备 --</option>
-                    </select>
-                    <button class="refresh-btn" onclick="refreshDevices()" title="刷新设备列表">🔄</button>
+                    <div style="display: flex; gap: 10px;">
+                        <select id="deviceName" style="flex: 1;" onchange="onDeviceChange()">
+                            <option value="">-- 选择设备 --</option>
+                        </select>
+                        <button class="refresh-btn" onclick="refreshDevices()" title="刷新设备列表">🔄</button>
+                    </div>
                 </div>
                 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>采集分辨率 - 宽</label>
-                        <input type="number" id="captureWidth" value="640">
-                    </div>
-                    <div class="form-group">
-                        <label>采集分辨率 - 高</label>
-                        <input type="number" id="captureHeight" value="360">
+                <div class="form-group">
+                    <label>采集分辨率</label>
+                    <select id="captureResolution" onchange="updateResolutionInputs()">
+                        <option value="">-- 请先选择设备 --</option>
+                    </select>
+                    <div class="form-row" style="margin-top: 10px;">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <input type="number" id="captureWidth" placeholder="宽" style="display: none;">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <input type="number" id="captureHeight" placeholder="高" style="display: none;">
+                        </div>
                     </div>
                 </div>
                 
                 <div class="form-group">
                     <label>采集帧率</label>
-                    <input type="number" id="captureFramerate" value="24">
+                    <select id="captureFramerate">
+                        <option value="">-- 请先选择设备 --</option>
+                    </select>
                 </div>
                 
                 <div class="section-title">RTSP 推流</div>
@@ -459,6 +737,10 @@
                     <label>视频码率 (bps)</label>
                     <input type="number" id="videoBitrate" value="6000000">
                     <p class="info-text">建议: 1080p=4-6Mbps, 720p=2-4Mbps</p>
+                </div>
+                
+                <div class="save-section">
+                    <button class="btn btn-primary" onclick="saveConfig()">💾 保存配置</button>
                 </div>
             </div>
             
@@ -522,32 +804,52 @@
             <div class="card full-width">
                 <div class="card-header">
                     <h2>📋 运行日志</h2>
-                    <button class="btn btn-secondary" onclick="clearLog()">清空日志</button>
+                    <button class="btn btn-secondary" onclick="clearLog()">清空</button>
                 </div>
                 <div class="log-container" id="logContainer">
                     <div class="log-line info">系统就绪，等待操作...</div>
                 </div>
             </div>
-        </div>
-        
-        <!-- 保存按钮 -->
-        <div style="text-align: center; margin-top: 30px;">
-            <button class="btn btn-primary" onclick="saveConfig()" style="padding: 15px 50px; font-size: 1.1em;">
-                💾 保存配置
-            </button>
+            
+            <!-- 录制文件 -->
+            <div class="card full-width">
+                <div class="card-header">
+                    <h2>📁 录制文件</h2>
+                    <button class="refresh-btn" onclick="refreshRecordings()" title="刷新列表">🔄</button>
+                </div>
+                <div class="recordings-list" id="recordingsList">
+                    <div class="log-line" style="text-align: center; padding: 20px;">暂无录制文件</div>
+                </div>
+            </div>
         </div>
     </div>
     
     <script>
+        let systemUpdateInterval;
+        let logUpdateInterval;
+        
         // 页面加载时初始化
         document.addEventListener('DOMContentLoaded', function() {
             loadConfig();
             refreshDevices();
             updateStatus();
             
-            // 定时更新状态和日志
+            // 获取推流地址
+            fetch('/api/stream_url')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('streamUrl').value = data.http_flv_url || data.rtsp_url || '';
+                });
+            
+            // 启动系统监控更新
+            updateSystemInfo();
+            systemUpdateInterval = setInterval(updateSystemInfo, 2000);
+            
+            // 启动日志更新
+            logUpdateInterval = setInterval(refreshLog, 3000);
+            
+            // 启动状态更新
             setInterval(updateStatus, 3000);
-            setInterval(refreshLog, 5000);
         });
         
         // 加载配置
@@ -656,7 +958,6 @@
                         select.appendChild(option);
                     });
                     
-                    // 恢复之前选择的值
                     if (currentValue) {
                         select.value = currentValue;
                     }
@@ -666,6 +967,77 @@
                 .catch(error => {
                     showToast('获取设备列表失败', 'error');
                 });
+        }
+        
+        // 设备选择变化时获取设备参数
+        function onDeviceChange() {
+            const deviceSelect = document.getElementById('deviceName');
+            const deviceValue = deviceSelect.value;
+            
+            if (!deviceValue) {
+                document.getElementById('captureResolution').innerHTML = '<option value="">-- 请先选择设备 --</option>';
+                document.getElementById('captureFramerate').innerHTML = '<option value="">-- 请先选择设备 --</option>';
+                return;
+            }
+            
+            const deviceName = deviceValue.replace('video=', '');
+            
+            fetch('/api/device_capabilities/' + encodeURIComponent(deviceName))
+                .then(response => response.json())
+                .then(capabilities => {
+                    updateResolutionSelect(capabilities.resolutions, capabilities.default_resolution);
+                    updateFramerateSelect(capabilities.framerates, capabilities.default_framerate);
+                    showToast('已获取设备参数', 'success');
+                })
+                .catch(error => {
+                    showToast('获取设备参数失败: ' + error.message, 'error');
+                });
+        }
+        
+        // 更新分辨率下拉框
+        function updateResolutionSelect(resolutions, defaultRes) {
+            const select = document.getElementById('captureResolution');
+            select.innerHTML = '<option value="">-- 选择分辨率 --</option>';
+            
+            resolutions.forEach(res => {
+                const option = document.createElement('option');
+                option.value = res.width + 'x' + res.height;
+                option.textContent = res.label;
+                if (defaultRes && res.width === defaultRes.width && res.height === defaultRes.height) {
+                    option.selected = true;
+                }
+                select.appendChild(option);
+            });
+            
+            updateResolutionInputs();
+        }
+        
+        // 更新帧率下拉框
+        function updateFramerateSelect(framerates, defaultFps) {
+            const select = document.getElementById('captureFramerate');
+            select.innerHTML = '<option value="">-- 选择帧率 --</option>';
+            
+            framerates.forEach(fps => {
+                const option = document.createElement('option');
+                option.value = fps;
+                option.textContent = fps + ' fps';
+                if (fps === defaultFps) {
+                    option.selected = true;
+                }
+                select.appendChild(option);
+            });
+        }
+        
+        // 更新隐藏的分辨率输入框
+        function updateResolutionInputs() {
+            const select = document.getElementById('captureResolution');
+            const value = select.value;
+            
+            if (value) {
+                const [width, height] = value.split('x');
+                document.getElementById('captureWidth').value = width;
+                document.getElementById('captureHeight').value = height;
+            }
         }
         
         // 启动推流
@@ -735,6 +1107,73 @@
                 });
         }
         
+        // 更新系统信息
+        function updateSystemInfo() {
+            fetch('/api/system')
+                .then(response => response.json())
+                .then(data => {
+                    // CPU
+                    const cpuPercent = data.cpu.percent;
+                    const cpuValue = document.getElementById('cpuValue');
+                    const cpuBar = document.getElementById('cpuBar');
+                    cpuValue.textContent = cpuPercent + '%';
+                    cpuBar.style.width = cpuPercent + '%';
+                    cpuValue.className = 'value ' + getValueClass(cpuPercent);
+                    
+                    // 内存
+                    const memPercent = data.memory.percent;
+                    const memoryValue = document.getElementById('memoryValue');
+                    const memoryBar = document.getElementById('memoryBar');
+                    memoryValue.textContent = data.memory.used_gb + ' / ' + data.memory.total_gb + ' GB';
+                    memoryBar.style.width = memPercent + '%';
+                    memoryValue.className = 'value ' + getValueClass(memPercent);
+                    
+                    // 磁盘
+                    const diskPercent = data.disk.percent;
+                    const diskValue = document.getElementById('diskValue');
+                    const diskBar = document.getElementById('diskBar');
+                    diskValue.textContent = data.disk.used_gb + ' / ' + data.disk.total_gb + ' GB';
+                    diskBar.style.width = diskPercent + '%';
+                    diskValue.className = 'value ' + getValueClass(diskPercent);
+                    
+                    // GPU
+                    if (data.gpu.available) {
+                        document.getElementById('gpuName').textContent = data.gpu.name;
+                        const gpuValue = document.getElementById('gpuValue');
+                        const gpuBar = document.getElementById('gpuBar');
+                        const gpuMemPercent = (data.gpu.memory_used / data.gpu.memory_total * 100).toFixed(1);
+                        gpuValue.textContent = data.gpu.memory_used + ' / ' + data.gpu.memory_total + ' MB';
+                        gpuBar.style.width = gpuMemPercent + '%';
+                    } else {
+                        document.getElementById('gpuName').textContent = '未检测到 NVIDIA GPU';
+                        document.getElementById('gpuValue').textContent = '--';
+                    }
+                    
+                    // 进程信息
+                    const processInfo = document.getElementById('processInfo');
+                    if (data.process) {
+                        processInfo.style.display = 'block';
+                        document.getElementById('processCpu').textContent = data.process.cpu_percent.toFixed(1) + '%';
+                        document.getElementById('processMemory').textContent = data.process.memory_mb.toFixed(1) + ' MB';
+                        document.getElementById('processThreads').textContent = data.process.threads;
+                    } else {
+                        document.getElementById('processCpu').textContent = '--';
+                        document.getElementById('processMemory').textContent = '--';
+                        document.getElementById('processThreads').textContent = '--';
+                    }
+                    
+                    // 更新时间
+                    document.getElementById('updateTime').textContent = '更新于 ' + new Date().toLocaleTimeString();
+                });
+        }
+        
+        // 获取值样式类
+        function getValueClass(percent) {
+            if (percent >= 90) return 'danger';
+            if (percent >= 70) return 'warning';
+            return 'good';
+        }
+        
         // 刷新日志
         function refreshLog() {
             fetch('/api/log')
@@ -764,6 +1203,180 @@
         // 清空日志
         function clearLog() {
             document.getElementById('logContainer').innerHTML = '<div class="log-line info">日志已清空</div>';
+        }
+        
+        // 刷新录制文件
+        function refreshRecordings() {
+            fetch('/api/recordings')
+                .then(response => response.json())
+                .then(recordings => {
+                    const list = document.getElementById('recordingsList');
+                    
+                    if (recordings.length === 0) {
+                        list.innerHTML = '<div class="log-line" style="text-align: center; padding: 20px;">暂无录制文件</div>';
+                        return;
+                    }
+                    
+                    let html = '';
+                    recordings.forEach(rec => {
+                        html += `
+                            <div class="recording-item">
+                                <div>
+                                    <div class="name">🎬 ${rec.name}</div>
+                                    <div class="meta">${rec.created} · ${rec.size_mb} MB</div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    list.innerHTML = html;
+                });
+        }
+        
+        let flvPlayer = null;
+        let hlsPlayer = null;
+        
+        // 连接视频流
+        function connectStream() {
+            const url = document.getElementById('streamUrl').value.trim();
+            if (!url) {
+                showToast('请输入视频流地址', 'error');
+                return;
+            }
+            
+            disconnectStream();
+            
+            const preview = document.getElementById('videoPreview');
+            preview.innerHTML = `
+                <div class="video-overlay">
+                    <span class="live-dot active"></span>
+                    <span>LIVE</span>
+                </div>
+                <video id="videoPlayer" controls autoplay muted style="width: 100%; height: 100%;"></video>
+            `;
+            
+            const video = document.getElementById('videoPlayer');
+            let playUrl = url;
+            
+            if (url.startsWith('rtsp://')) {
+                playUrl = convertRtspToHttpFlv(url);
+                playFlvStream(video, playUrl);
+            } else if (url.includes('.flv') || url.includes('flv')) {
+                playFlvStream(video, playUrl);
+            } else if (url.includes('.m3u8')) {
+                playHlsStream(video, playUrl);
+            } else {
+                video.src = playUrl;
+                video.load();
+            }
+        }
+        
+        function convertRtspToHttpFlv(rtspUrl) {
+            let httpUrl = rtspUrl.replace('rtsp://', 'http://');
+            httpUrl = httpUrl.replace(':554/', ':8080/');
+            if (!httpUrl.endsWith('.flv')) {
+                httpUrl = httpUrl.replace(/\/$/, '') + '.flv';
+            }
+            return httpUrl;
+        }
+        
+        function playFlvStream(video, url) {
+            if (!flvjs.isSupported()) {
+                showToast('浏览器不支持 FLV 播放', 'error');
+                return;
+            }
+            
+            showToast('正在连接 FLV 流...', 'success');
+            
+            flvPlayer = flvjs.createPlayer({
+                type: 'flv',
+                url: url,
+                isLive: true,
+                hasAudio: true,
+                hasVideo: true,
+                cors: true
+            }, {
+                enableWorker: true,
+                enableStashBuffer: false,
+                stashInitialSize: 128,
+                lazyLoad: false,
+                lazyLoadMaxDuration: 3 * 60,
+                deferLoadAfterSourceOpen: false
+            });
+            
+            flvPlayer.attachMediaElement(video);
+            flvPlayer.load();
+            flvPlayer.play();
+            
+            flvPlayer.on(flvjs.Events.ERROR, (errType, errDetail) => {
+                console.error('FLV Error:', errType, errDetail);
+                showToast('流连接失败: ' + errDetail, 'error');
+            });
+            
+            flvPlayer.on(flvjs.Events.LOADING_COMPLETE, () => {
+                showToast('流连接成功', 'success');
+            });
+        }
+        
+        function playHlsStream(video, url) {
+            if (!Hls.isSupported()) {
+                if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                    video.src = url;
+                    video.load();
+                } else {
+                    showToast('浏览器不支持 HLS 播放', 'error');
+                }
+                return;
+            }
+            
+            showToast('正在连接 HLS 流...', 'success');
+            
+            hlsPlayer = new Hls({
+                debug: false,
+                enableWorker: true,
+                lowLatencyMode: true,
+                backBufferLength: 90
+            });
+            
+            hlsPlayer.loadSource(url);
+            hlsPlayer.attachMedia(video);
+            
+            hlsPlayer.on(Hls.Events.MANIFEST_PARSED, () => {
+                video.play();
+                showToast('HLS 流连接成功', 'success');
+            });
+            
+            hlsPlayer.on(Hls.Events.ERROR, (event, data) => {
+                console.error('HLS Error:', data);
+                if (data.fatal) {
+                    showToast('HLS 流连接失败: ' + data.type, 'error');
+                }
+            });
+        }
+        
+        // 断开视频流
+        function disconnectStream() {
+            if (flvPlayer) {
+                flvPlayer.pause();
+                flvPlayer.unload();
+                flvPlayer.detachMediaElement();
+                flvPlayer.destroy();
+                flvPlayer = null;
+            }
+            
+            if (hlsPlayer) {
+                hlsPlayer.destroy();
+                hlsPlayer = null;
+            }
+            
+            const preview = document.getElementById('videoPreview');
+            preview.innerHTML = `
+                <div class="placeholder">
+                    <div class="icon">📺</div>
+                    <p>点击"连接视频流"开始预览</p>
+                    <p style="font-size: 0.8em; margin-top: 10px;">支持 HTTP-FLV / HLS 流</p>
+                    <p style="font-size: 0.75em; margin-top: 8px; color: #555;">RTSP 需通过流媒体服务器转换为 HTTP-FLV</p>
+                </div>
+            `;
         }
         
         // HTML转义

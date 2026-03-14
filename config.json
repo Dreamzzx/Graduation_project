@@ -1,17 +1,17 @@
 {
     "push": {
-        "rtsp_url": "rtsp://192.168.5.66:554/live/test",
+        "rtsp_url": "rtsp://192.168.5.66:8554/live/test",
         "video_width": 1920,
         "video_height": 1080,
         "frame_rate": 24,
         "video_bitrate": 5000000
     },
     "capture": {
-        "device_name": "video=HP Wide Vision HD Camera",
+        "device_name": "video=LRCP 500W",
         "input_format": "dshow",
-        "video_width": 640,
-        "video_height": 360,
-        "framerate": 24
+        "video_width": 2048,
+        "video_height": 1536,
+        "framerate": 30
     },
     "detector": {
         "enabled": true,

@@ -1,5 +1,7 @@
 #include "VideoSource.h"
 #include <sstream>
+#include <chrono>
+#include <thread>
 
 VideoSource::VideoSource(const char* device_name, std::atomic<bool>* is_pushing, VideoFrameQueue<cv::Mat>* shared_queue)
 {
@@ -130,6 +132,7 @@ void VideoSource::start()
         if (ret < 0) {
             av_packet_free(&packet);
             if (ret == AVERROR_EOF || !is_running->load()) break;
+            std::this_thread::sleep_for(std::chrono::milliseconds(1));
             continue;
         }
 
@@ -286,7 +289,7 @@ cv::Mat VideoSource::HWFrameToCvMat(AVFrame* frame)
         sws_ctx = sws_getContext(
             tmp_frame->width, tmp_frame->height, (AVPixelFormat)tmp_frame->format,
             tmp_frame->width, tmp_frame->height, AV_PIX_FMT_BGR24,
-            SWS_BILINEAR, nullptr, nullptr, nullptr);
+            SWS_FAST_BILINEAR, nullptr, nullptr, nullptr);
     }
 
     cv::Mat mat(tmp_frame->height, tmp_frame->width, CV_8UC3);

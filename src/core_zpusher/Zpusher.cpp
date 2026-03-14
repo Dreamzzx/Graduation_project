@@ -31,8 +31,8 @@ void ZPusher::Init()
     const DetectorConfig& detector_cfg = config.getDetectorConfig();
     const RecorderConfig& recorder_cfg = config.getRecorderConfig();
     
-    capture_queue = new VideoFrameQueue<cv::Mat>(2);
-    detect_queue = new VideoFrameQueue<FrameData>(3);
+    capture_queue = new VideoFrameQueue<cv::Mat>(1);
+    detect_queue = new VideoFrameQueue<FrameData>(1);
     
     thread_pool = new ThreadPool();
     
@@ -121,12 +121,14 @@ void ZPusher::start_Push()
             cv::Size target_size(1920, 1080);
             bool local_running = true;
             while (local_running && is_pushing.load()) {
-                auto opt_frame = capture_queue->Pop(local_running);
+                auto opt_frame = capture_queue->PopLatestNonBlocking(local_running);
                 if (opt_frame) {
                     FrameData frame_data;
-                    cv::resize(*opt_frame, frame_data.frame, target_size, 0, 0, cv::INTER_LINEAR);
+                    cv::resize(*opt_frame, frame_data.frame, target_size, 0, 0, cv::INTER_NEAREST);
                     frame_data.has_person = false;
                     detect_queue->Push(std::move(frame_data));
+                } else {
+                    std::this_thread::sleep_for(std::chrono::milliseconds(1));
                 }
             }
         });
@@ -137,7 +139,7 @@ void ZPusher::start_Push()
     thread_pool->submitTask([this]() {
         bool local_running = true;
         while (local_running && is_pushing.load()) {
-            auto opt_frame = detect_queue->Pop(local_running);
+            auto opt_frame = detect_queue->PopLatestNonBlocking(local_running);
             if (opt_frame) {
                 FrameData frame_data = std::move(*opt_frame);
                 
@@ -150,6 +152,8 @@ void ZPusher::start_Push()
                 }
                 
                 ffmpeg_push->pushFrame(std::move(frame_data));
+            } else {
+                std::this_thread::sleep_for(std::chrono::milliseconds(1));
             }
         }
     });

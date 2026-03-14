@@ -234,7 +234,7 @@ std::vector<Detection> YOLOv11Detector::detect(const cv::Mat& image)
 
 cv::Mat YOLOv11Detector::draw_detections(const cv::Mat& img, const std::vector<Detection>& results)
 {
-    cv::Mat draw_img = img.clone();
+    cv::Mat draw_img = img;
     
     if (!results.empty()) {
         int padding = 20;
@@ -307,7 +307,7 @@ std::vector<float> YOLOv11Detector::preprocess(const cv::Mat& img)
     int new_h = static_cast<int>(img_h * scale);
 
     cv::Mat resized_img;
-    cv::resize(img, resized_img, cv::Size(new_w, new_h));
+    cv::resize(img, resized_img, cv::Size(new_w, new_h), 0, 0, cv::INTER_NEAREST);
 
     pad_w = (input_size - new_w) / 2;
     pad_h = (input_size - new_h) / 2;
@@ -404,24 +404,27 @@ std::vector<Detection> YOLOv11Detector::postprocess(float* output_data, int outp
 
 void YOLOv11Detector::start() {
     bool is_run = true;
+    cv::Size target_size(1920, 1080);
     while (is_run) {
-        auto opt_frame = input_queue->Pop(is_run);
+        auto opt_frame = input_queue->PopLatestNonBlocking(is_run);
         if (opt_frame) {
             if (!opt_frame->empty() && opt_frame->rows > 0 && opt_frame->cols > 0) {
                 std::vector<Detection> results = detect(*opt_frame);
                 cv::Mat output_frame = draw_detections(*opt_frame, results);
                 
                 cv::Mat resized_frame;
-                cv::resize(output_frame, resized_frame, cv::Size(1920, 1080), 0, 0, cv::INTER_LINEAR);
+                cv::resize(output_frame, resized_frame, target_size, 0, 0, cv::INTER_NEAREST);
                 
                 FrameData frame_data;
-                frame_data.frame = resized_frame;
-                frame_data.detections = results;
-                frame_data.has_person = !results.empty();
+                frame_data.frame = std::move(resized_frame);
+                frame_data.detections = std::move(results);
+                frame_data.has_person = !frame_data.detections.empty();
                 frame_data.frame_id = frame_id_counter++;
                 
                 output_queue->Push(std::move(frame_data));
             }
+        } else {
+            std::this_thread::sleep_for(std::chrono::milliseconds(1));
         }
     }
 }
