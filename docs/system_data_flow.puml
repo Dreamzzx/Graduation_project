@@ -1,0 +1,433 @@
+@startuml system_architecture
+!define RECTANGLE class
+
+title 智能视频分析系统 - 系统整体架构图
+
+package "数据采集层" {
+    [视频设备\n摄像头/RTSP] as VideoDevice
+    [VideoSource\n视频采集模块] as VideoSource
+}
+
+package "数据处理层" {
+    queue "VideoFrameQueue<cv::Mat>\n采集队列" as CaptureQueue
+    [YOLOv11Detector\n目标检测推理引擎] as Detector
+    queue "VideoFrameQueue<FrameData>\n检测队列" as DetectQueue
+}
+
+package "数据输出层" {
+    [FFmpegPush\nRTSP推流模块] as FFmpegPush
+    [VideoRecorder\n视频录制模块] as Recorder
+    [MediaMTX\nRTSP服务器] as MediaMTX
+    database "本地存储\nrecordings/" as Storage
+}
+
+package "Web管理层" {
+    [Flask Web Server\napp.py] as Flask
+    [前端界面] as Frontend
+    [API接口] as API
+    [流管理] as StreamMgr
+    [设备管理] as DeviceMgr
+    [模型管理] as ModelMgr
+    [系统监控] as SysMonitor
+}
+
+VideoDevice --> VideoSource
+VideoSource --> CaptureQueue
+CaptureQueue --> Detector
+Detector --> DetectQueue
+DetectQueue --> FFmpegPush
+DetectQueue --> Recorder
+FFmpegPush --> MediaMTX
+Recorder --> Storage
+MediaMTX --> Frontend : HLS流
+
+Flask --> Frontend
+Flask --> API
+API --> StreamMgr
+API --> DeviceMgr
+API --> ModelMgr
+API --> SysMonitor
+
+@enduml
+
+@startuml inference_dataflow
+title 核心推理模块数据流图
+
+|输入预处理|
+start
+:原始帧 cv::Mat;
+:图像缩放 Letterbox;
+:填充Padding 640x640;
+:归一化 1/255.0;
+:通道转换 BGR→RGB;
+:张量构建 1x3x640x640;
+
+|模型推理|
+if (推理后端选择?) then (ONNX Runtime)
+    :YOLOv11Detector ONNX;
+elseif (LibTorch) then
+    :YOLOv11Detector Torch;
+else (TensorRT)
+    :YOLOv11RT TRT;
+endif
+:GPU/CPU推理;
+
+|后处理|
+:输出解析 8400个锚点;
+:置信度过滤 conf_thresh;
+:类别过滤 target_classes;
+:NMS非极大值抑制 nms_thresh;
+:坐标映射 还原到原图;
+:检测结果 Detection;
+
+stop
+@enduml
+
+@startuml thread_dataflow
+title 多线程数据流图
+
+skinparam componentStyle rectangle
+
+package "ThreadPool 线程池" {
+    [Thread 1\n视频采集线程] as T1
+    [Thread 2\n推理检测线程] as T2
+    [Thread 3\n帧处理线程] as T3
+    [Thread 4\n录制监控线程] as T4
+}
+
+package "共享队列" {
+    queue "capture_queue\nVideoFrameQueue<cv::Mat>" as Q1
+    queue "detect_queue\nVideoFrameQueue<FrameData>" as Q2
+}
+
+[VideoSource] as VS
+[FFmpegPush] as FP
+[VideoRecorder] as VR
+
+VS -down-> Q1 : Push
+Q1 -down-> T2 : Pop
+T2 -down-> Q2 : Push
+Q2 -down-> T3 : Pop
+T3 -down-> FP : Push
+T3 -down-> VR : Notify
+
+T1 ..> VS : 控制
+T4 ..> VR : 监控
+
+@enduml
+
+@startuml detector_class
+title 推理引擎类图
+
+class YOLOv11Detector_ONNX {
+    - Ort::Env env
+    - Ort::Session* session
+    - Ort::MemoryInfo* memory_info
+    - int input_size
+    - float conf_thresh
+    - float nms_thresh
+    - vector<string> class_names
+    - set<int> target_class_ids
+    - VideoFrameQueue* input_queue
+    - VideoFrameQueue* output_queue
+    + Init() bool
+    + detect(cv::Mat) vector<Detection>
+    + draw_detections() cv::Mat
+    + start() void
+    - preprocess() vector<float>
+    - postprocess() vector<Detection>
+}
+
+class YOLOv11Detector_Torch {
+    - torch::jit::script::Module model
+    - torch::Device device
+    - vector<string> class_names
+    - int input_size
+    - float conf_thresh
+    - float nms_thresh
+    + YOLOv11Detector()
+    + detect(cv::Mat) vector<Detection>
+}
+
+class YOLOv11RT {
+    - nvinfer1::ICudaEngine* engine
+    - nvinfer1::IExecutionContext* context
+    - void* device_input_buffer
+    - void* device_output_buffer
+    - Logger logger
+    + init() bool
+    - buildEngine() bool
+    - loadEngine() bool
+    - preprocess() void
+    - postprocess() vector<Detection>
+}
+
+class Detection {
+    + cv::Rect bbox
+    + float confidence
+    + int class_id
+    + string class_name
+}
+
+class FrameData {
+    + cv::Mat frame
+    + vector<Detection> detections
+    + int64_t timestamp_ms
+    + int64_t frame_id
+    + bool has_person
+}
+
+YOLOv11Detector_ONNX --> Detection : 生成
+YOLOv11Detector_Torch --> Detection : 生成
+YOLOv11RT --> Detection : 生成
+FrameData *-- Detection : 包含
+
+@enduml
+
+@startuml web_api_sequence
+title Web API数据流时序图
+
+actor 前端
+participant Flask
+participant StreamManager
+participant VideoPush
+participant MediaMTX
+
+前端 -> Flask : POST /api/streams (创建流配置)
+Flask -> StreamManager : save_stream()
+StreamManager --> Flask : 配置已保存
+Flask --> 前端 : 成功响应
+
+前端 -> Flask : POST /api/streams/{id}/start
+Flask -> StreamManager : start_stream_process()
+StreamManager -> VideoPush : 启动VideoPush.exe
+VideoPush -> MediaMTX : RTSP推流
+MediaMTX --> 前端 : HLS流可用
+
+前端 -> Flask : GET /api/streams/{id}/status
+Flask -> StreamManager : get_stream_status()
+StreamManager --> Flask : 运行状态
+Flask --> 前端 : 状态信息
+
+前端 -> Flask : POST /api/streams/{id}/stop
+Flask -> StreamManager : stop_stream_process()
+StreamManager -> VideoPush : 终止进程
+VideoPush --> Flask : 进程已终止
+Flask --> 前端 : 成功响应
+
+@enduml
+
+@startuml config_dataflow
+title 配置数据流图
+
+package "配置加载" {
+    file "config.json" as ConfigFile
+    [Config::load] as ConfigLoad
+    package "配置结构" {
+        [CaptureConfig] as CC
+        [PushConfig] as PC
+        [DetectorConfig] as DC
+        [RecorderConfig] as RC
+    }
+}
+
+package "模块初始化" {
+    [VideoSource初始化] as VSInit
+    [FFmpegPush初始化] as FPInit
+    [YOLOv11Detector初始化] as DetInit
+    [VideoRecorder初始化] as RecInit
+}
+
+package "运行时参数" {
+    [设备名称/分辨率/帧率] as VSParams
+    [RTSP URL/码率/分辨率] as FPParams
+    [模型路径/类别/阈值] as DetParams
+    [输出目录/超时时间] as RecParams
+}
+
+ConfigFile --> ConfigLoad
+ConfigLoad --> CC
+ConfigLoad --> PC
+ConfigLoad --> DC
+ConfigLoad --> RC
+
+CC --> VSInit
+PC --> FPInit
+DC --> DetInit
+RC --> RecInit
+
+VSInit --> VSParams
+FPInit --> FPParams
+DetInit --> DetParams
+RecInit --> RecParams
+
+@enduml
+
+@startuml system_sequence
+title 完整系统时序图
+
+actor 用户
+participant Web界面
+participant Flask API
+participant ZPusher
+participant VideoSource
+participant Detector
+participant FFmpegPush
+participant VideoRecorder
+participant MediaMTX
+
+用户 -> Web界面 : 配置流参数
+Web界面 -> Flask API : POST /api/streams
+Flask API -> ZPusher : Init(config_path)
+ZPusher -> VideoSource : 初始化视频源
+ZPusher -> Detector : 初始化检测器
+ZPusher -> FFmpegPush : 初始化推流器
+ZPusher -> VideoRecorder : 初始化录制器
+
+用户 -> Web界面 : 启动流
+Web界面 -> Flask API : POST /api/streams/{id}/start
+Flask API -> ZPusher : start_Push()
+
+loop 视频处理循环
+    VideoSource -> VideoSource : 采集帧
+    VideoSource -> Detector : Push到capture_queue
+    Detector -> Detector : 推理检测
+    Detector -> FFmpegPush : Push到detect_queue
+    FFmpegPush -> FFmpegPush : 编码帧
+    FFmpegPush -> MediaMTX : RTSP推流
+    MediaMTX -> Web界面 : HLS播放
+    
+    alt 检测到目标
+        Detector -> VideoRecorder : has_person=true
+        VideoRecorder -> VideoRecorder : 开始录制
+    else 未检测到目标
+        Detector -> VideoRecorder : has_person=false
+        VideoRecorder -> VideoRecorder : 停止录制
+    end
+end
+
+@enduml
+
+@startuml data_structure_er
+title 数据结构关系图
+
+entity "FRAME_DATA" as FD {
+    cv::Mat frame
+    --
+    vector<Detection> detections
+    int64_t timestamp_ms
+    int64_t frame_id
+    bool has_person
+}
+
+entity "DETECTION" as DET {
+    cv::Rect bbox
+    --
+    float confidence
+    int class_id
+    string class_name
+}
+
+entity "CAPTURE_CONFIG" as CC {
+    string device_name
+    --
+    int video_width
+    int video_height
+    int framerate
+}
+
+entity "PUSH_CONFIG" as PC {
+    string rtsp_url
+    --
+    int video_width
+    int video_height
+    int video_bitrate
+    int frame_rate
+}
+
+entity "DETECTOR_CONFIG" as DC {
+    bool enabled
+    --
+    string model_path
+    vector<string> classes
+    float confidence_threshold
+    int input_width
+}
+
+entity "RECORDER_CONFIG" as RC {
+    bool enabled
+    --
+    string output_dir
+    int person_leave_timeout_ms
+}
+
+FD ||--o{ DET : contains
+CC ||--|| VideoSource : configures
+PC ||--|| FFmpegPush : configures
+DC ||--|| YOLOv11Detector : configures
+RC ||--|| VideoRecorder : configures
+
+@enduml
+
+@startuml component_overview
+title 系统组件概览图
+
+skinparam componentStyle uml2
+
+package "核心模块" {
+    [ZPusher\n主控制器] as ZP
+    [VideoSource\n视频采集] as VS
+    [YOLOv11Detector\n目标检测] as DET
+    [FFmpegPush\n视频推送] as FP
+    [VideoRecorder\n视频录制] as VR
+}
+
+package "推理后端" {
+    [ONNX Runtime] as ONNX
+    [LibTorch] as Torch
+    [TensorRT] as TRT
+}
+
+package "基础设施" {
+    [ThreadPool\n线程池] as TP
+    queue "VideoFrameQueue\n帧队列" as Q
+    [Config\n配置管理] as CFG
+}
+
+package "外部依赖" {
+    [FFmpeg] as FFmpeg
+    [OpenCV] as OpenCV
+    [CUDA] as CUDA
+    [MediaMTX] as MediaMTX
+}
+
+package "Web服务" {
+    [Flask] as Flask
+    [前端界面] as Web
+}
+
+ZP --> VS
+ZP --> DET
+ZP --> FP
+ZP --> VR
+ZP --> TP
+ZP --> CFG
+
+DET --> ONNX
+DET --> Torch
+DET --> TRT
+
+VS --> FFmpeg
+VS --> OpenCV
+FP --> FFmpeg
+DET --> OpenCV
+DET --> CUDA
+
+VS --> Q
+DET --> Q
+FP --> Q
+
+FP --> MediaMTX
+Flask --> Web
+
+@enduml

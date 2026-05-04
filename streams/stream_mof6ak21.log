@@ -1,9 +1,9 @@
-[BEGIN] main
-[Config] Parsing config file: D:\Project\Graduation project\build\bin\Debug\..\..\..\config.json
-[Config] Loaded successfully from D:\Project\Graduation project\build\bin\Debug\..\..\..\config.json
+[Config] Using config: D:\Project\Graduation project\streams\stream_mof6ak21.json
+[Config] Parsing config file: D:\Project\Graduation project\streams\stream_mof6ak21.json
+[Config] Loaded successfully from D:\Project\Graduation project\streams\stream_mof6ak21.json
 ========== Configuration ==========
 [Push]
-  RTSP URL: rtsp://120.8.192.62:8554/live/test
+  RTSP URL: rtsp://192.168.236.204:8554/live/t1
   Video: 1920x1080, Bitrate: 5000000, FPS: 24
 [Capture]
   Device: video=LRCP 500W
@@ -43,7 +43,7 @@ Input node 0: images
 Output node 0: output0
 Yolov11 Onnx Model loaded successfully: model/yolo11n.onnx
 [Detection Mode]: Init Success!
-[Push] Starting stream to: rtsp://120.8.192.62:8554/live/test
+[Push] Starting stream to: rtsp://192.168.236.204:8554/live/t1
 [Push] Resolution: 1920x1080, Bitrate: 5000000
 [1/7] Network init...
 [2/7] CUDA init...
@@ -63,7 +63,7 @@ Init success!
 [Push Mode]: Init Success!
 [Recorder] Initialized. Output dir: recordings
 [Recorder Mode]: Init Success!
-[Push] Starting stream to: rtsp://120.8.192.62:8554/live/test
+[Push] Starting stream to: rtsp://192.168.236.204:8554/live/t1
 [Push] Resolution: 1920x1080, Bitrate: 5000000
 [Push] SPS/PPS extracted: YES
 [FFmpegPush] Initialized and ready
@@ -71,17 +71,25 @@ Pushing started.
 Video capture started.
 Frame 0: format=117 (CUDA=117), hw_frames_ctx=YES
 Frame format: 117, hw_pix_fmt: 117
-[ INFO:0@2.101] global registry_parallel.impl.hpp:96 cv::parallel::ParallelBackendRegistry::ParallelBackendRegistry core(parallel): Enabled backends(3, sorted by priority): ONETBB(1000); TBB(990); OPENMP(980)
-[ INFO:0@2.102] global plugin_loader.impl.hpp:67 cv::plugin::impl::DynamicLib::libraryLoad load D:\Project\Graduation project\build\bin\Debug\opencv_core_parallel_onetbb4120_64d.dll => FAILED
+[ INFO:0@1.441] global registry_parallel.impl.hpp:96 cv::parallel::ParallelBackendRegistry::ParallelBackendRegistry core(parallel): Enabled backends(3, sorted by priority): ONETBB(1000); TBB(990); OPENMP(980)
+[ INFO:0@1.442] global plugin_loader.impl.hpp:67 cv::plugin::impl::DynamicLib::libraryLoad load D:\Project\Graduation project\build\bin\Debug\opencv_core_parallel_onetbb4120_64d.dll => FAILED
 Frame 1: format=117 (CUDA=117), hw_frames_ctx=YES
-[ INFO:0@2.105] global plugin_loader.impl.hpp:67 cv::plugin::impl::DynamicLib::libraryLoad load opencv_core_parallel_onetbb4120_64d.dll => FAILED
-[ INFO:0@2.107] global plugin_loader.impl.hpp:67 cv::plugin::impl::DynamicLib::libraryLoad load D:\Project\Graduation project\build\bin\Debug\opencv_core_parallel_tbb4120_64d.dll => FAILED
-[ INFO:0@2.109] global plugin_loader.impl.hpp:67 cv::plugin::impl::DynamicLib::libraryLoad load opencv_core_parallel_tbb4120_64d.dll => FAILED
-[ INFO:0@2.110] global plugin_loader.impl.hpp:67 cv::plugin::impl::DynamicLib::libraryLoad load D:\Project\Graduation project\build\bin\Debug\opencv_core_parallel_openmp4120_64d.dll => FAILED
-[ INFO:0@2.111] global plugin_loader.impl.hpp:67 cv::plugin::impl::DynamicLib::libraryLoad load opencv_core_parallel_openmp4120_64d.dll => FAILED
+[ INFO:0@1.443] global plugin_loader.impl.hpp:67 cv::plugin::impl::DynamicLib::libraryLoad load opencv_core_parallel_onetbb4120_64d.dll => FAILED
+[ INFO:0@1.443] global plugin_loader.impl.hpp:67 cv::plugin::impl::DynamicLib::libraryLoad load D:\Project\Graduation project\build\bin\Debug\opencv_core_parallel_tbb4120_64d.dll => FAILED
+[ INFO:0@1.444] global plugin_loader.impl.hpp:67 cv::plugin::impl::DynamicLib::libraryLoad load opencv_core_parallel_tbb4120_64d.dll => FAILED
+[ INFO:0@1.444] global plugin_loader.impl.hpp:67 cv::plugin::impl::DynamicLib::libraryLoad load D:\Project\Graduation project\build\bin\Debug\opencv_core_parallel_openmp4120_64d.dll => FAILED
+[ INFO:0@1.446] global plugin_loader.impl.hpp:67 cv::plugin::impl::DynamicLib::libraryLoad load opencv_core_parallel_openmp4120_64d.dll => FAILED
 Frame 2: format=117 (CUDA=117), hw_frames_ctx=YES
 Frame 3: format=117 (CUDA=117), hw_frames_ctx=YES
 Frame 4: format=117 (CUDA=117), hw_frames_ctx=YES
 [Recorder] Using NVENC hardware encoder
-[Recorder] Started recording: recordings/recording_20260424_184236.mp4 (GPU encoding)
-[Recorder] Stopped recording: recordings/recording_20260424_184236.mp4 (frames: 36, duration: 1.5s)
+[Recorder] Started recording: recordings/recording_20260426_105613.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260426_105613.mp4 (frames: 2, duration: 0.1s)
+[Recorder] Using NVENC hardware encoder
+[Recorder] Started recording: recordings/recording_20260426_105617.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260426_105617.mp4 (frames: 241, duration: 10.0s)
+[Recorder] Using NVENC hardware encoder
+[Recorder] Started recording: recordings/recording_20260426_105643.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260426_105643.mp4 (frames: 91, duration: 3.8s)
+
+[Process exited with code: 1]

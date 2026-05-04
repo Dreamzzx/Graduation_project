@@ -1,0 +1,1719 @@
+[Config] Using config: D:\Project\Graduation project\streams\stream_mof6lv8q.json
+[Config] Parsing config file: D:\Project\Graduation project\streams\stream_mof6lv8q.json
+[Config] Loaded successfully from D:\Project\Graduation project\streams\stream_mof6lv8q.json
+========== Configuration ==========
+[Push]
+  RTSP URL: rtsp://120.8.174.126:8554/live/t1
+  Video: 1920x1080, Bitrate: 5000000, FPS: 24
+[Capture]
+  Device: video=LRCP 500W
+  Video: 1920x1080, FPS: 30
+  Input Format: dshow
+[Detector]
+  Enabled: YES
+  Model: model/yolo11n.onnx
+  Confidence: 0.5
+  Input: 640x640
+[Recorder]
+  Enabled: YES
+  Output Dir: recordings
+  Person Leave Timeout: 3000ms
+[Log]
+  Level: info
+  Debug: OFF
+==========================================
+Capture settings: 1920x1080 @ 30fps
+Opening video device: video=LRCP 500W
+Video stream codec: mjpeg, codec_id: 7
+CUDA device context created successfully!
+Using hardware decoder: mjpeg_cuvid
+Set hw_device_ctx before open
+HW frames context set after open: 1920x1080
+Decoder opened: mjpeg_cuvid
+codec_ctx->hw_frames_ctx: SET
+codec_ctx->hw_device_ctx: SET
+[Capture Mode]: Init Success!
+[Detector] Target classes: person 
+Model path: D:\Project\Graduation project\build\bin\Debug\..\..\..\model/yolo11n.onnx
+CUDA devices found: 1
+Device 0: NVIDIA GeForce GTX 1650
+Using GPU for inference.
+Loading model from: D:\Project\Graduation project\build\bin\Debug\..\..\..\model/yolo11n.onnx
+Model loaded successfully!
+Input node 0: images
+Output node 0: output0
+Yolov11 Onnx Model loaded successfully: model/yolo11n.onnx
+[Detection Mode]: Init Success!
+[Push] Starting stream to: rtsp://120.8.174.126:8554/live/t1
+[Push] Resolution: 1920x1080, Bitrate: 5000000
+[1/7] Network init...
+[2/7] CUDA init...
+[3/7] Format context...
+[4/7] Video stream...
+NVENC supports CUDA hardware acceleration
+[5/7] Codec context...
+[NVENC] Configured for ultra-low latency (preset=p1, tune=ull)
+0 0 0 1 103 77 64 40 149 160 30 0 137 249 112 17 0 0 3 3 
+[SPS/PPS] Extradata size=47, first bytes: 0 0 0 1
+[SPS/PPS] Parsing AnnexB extradata
+[SPS/PPS] Extracted SPS from AnnexB, size=39
+[SPS/PPS] Extracted PPS from AnnexB, size=8
+[SPS/PPS] Successfully extracted SPS(39 bytes), PPS(8 bytes)
+[6/7] Swscale...
+Init success!
+[Push Mode]: Init Success!
+[Recorder] Initialized. Output dir: recordings
+[Recorder Mode]: Init Success!
+[Push] Starting stream to: rtsp://120.8.174.126:8554/live/t1
+[Push] Resolution: 1920x1080, Bitrate: 5000000
+[Push] SPS/PPS extracted: YES
+[FFmpegPush] Initialized and ready
+Pushing started.
+Video capture started.
+Frame 0: format=117 (CUDA=117), hw_frames_ctx=YES
+Frame format: 117, hw_pix_fmt: 117
+Frame 1: format=117 (CUDA=117), hw_frames_ctx=YES
+[ INFO:0@2.245] global registry_parallel.impl.hpp:96 cv::parallel::ParallelBackendRegistry::ParallelBackendRegistry core(parallel): Enabled backends(3, sorted by priority): ONETBB(1000); TBB(990); OPENMP(980)
+[ INFO:0@2.256] global plugin_loader.impl.hpp:67 cv::plugin::impl::DynamicLib::libraryLoad load D:\Project\Graduation project\build\bin\Debug\opencv_core_parallel_onetbb4120_64d.dll => FAILED
+[ INFO:0@2.258] global plugin_loader.impl.hpp:67 cv::plugin::impl::DynamicLib::libraryLoad load opencv_core_parallel_onetbb4120_64d.dll => FAILED
+[ INFO:0@2.258] global plugin_loader.impl.hpp:67 cv::plugin::impl::DynamicLib::libraryLoad load D:\Project\Graduation project\build\bin\Debug\opencv_core_parallel_tbb4120_64d.dll => FAILED
+[ INFO:0@2.260] global plugin_loader.impl.hpp:67 cv::plugin::impl::DynamicLib::libraryLoad load opencv_core_parallel_tbb4120_64d.dll => FAILED
+[ INFO:0@2.260] global plugin_loader.impl.hpp:67 cv::plugin::impl::DynamicLib::libraryLoad load D:\Project\Graduation project\build\bin\Debug\opencv_core_parallel_openmp4120_64d.dll => FAILED
+[ INFO:0@2.262] global plugin_loader.impl.hpp:67 cv::plugin::impl::DynamicLib::libraryLoad load opencv_core_parallel_openmp4120_64d.dll => FAILED
+Frame 2: format=117 (CUDA=117), hw_frames_ctx=YES
+Frame 3: format=117 (CUDA=117), hw_frames_ctx=YES
+Frame 4: format=117 (CUDA=117), hw_frames_ctx=YES
+[Recorder] Using NVENC hardware encoder
+[Recorder] Started recording: recordings/recording_20260504_152831.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260504_152831.mp4 (frames: 18, duration: 0.8s)
+[Recorder] Using NVENC hardware encoder
+[Recorder] Started recording: recordings/recording_20260504_152846.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260504_152846.mp4 (frames: 3, duration: 0.1s)
+[Recorder] Using NVENC hardware encoder
+[Recorder] Started recording: recordings/recording_20260504_152904.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260504_152904.mp4 (frames: 6, duration: 0.2s)
+[Recorder] Using NVENC hardware encoder
+[Recorder] Started recording: recordings/recording_20260504_152915.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260504_152915.mp4 (frames: 1, duration: 0.0s)
+[Recorder] Using NVENC hardware encoder
+[Recorder] Started recording: recordings/recording_20260504_153002.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260504_153002.mp4 (frames: 2, duration: 0.1s)
+[Recorder] Using NVENC hardware encoder
+[Recorder] Started recording: recordings/recording_20260504_153011.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260504_153011.mp4 (frames: 98, duration: 4.1s)
+[Recorder] Using NVENC hardware encoder
+[Recorder] Started recording: recordings/recording_20260504_153032.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260504_153032.mp4 (frames: 6, duration: 0.2s)
+[Recorder] Using NVENC hardware encoder
+[Recorder] Started recording: recordings/recording_20260504_153040.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260504_153040.mp4 (frames: 6, duration: 0.2s)
+[Recorder] Using NVENC hardware encoder
+[Recorder] Started recording: recordings/recording_20260504_153204.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260504_153204.mp4 (frames: 1, duration: 0.0s)
+[Recorder] Using NVENC hardware encoder
+[Recorder] Started recording: recordings/recording_20260504_153235.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260504_153235.mp4 (frames: 38, duration: 1.6s)
+[Recorder] Using NVENC hardware encoder
+[Recorder] Started recording: recordings/recording_20260504_153325.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260504_153325.mp4 (frames: 1, duration: 0.0s)
+[Recorder] Using NVENC hardware encoder
+[Recorder] Started recording: recordings/recording_20260504_153422.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260504_153422.mp4 (frames: 1, duration: 0.0s)
+[Recorder] Using NVENC hardware encoder
+[Recorder] Started recording: recordings/recording_20260504_153656.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260504_153656.mp4 (frames: 16, duration: 0.7s)
+[Recorder] Using NVENC hardware encoder
+[Recorder] Started recording: recordings/recording_20260504_154220.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260504_154220.mp4 (frames: 4, duration: 0.2s)
+[Recorder] Using NVENC hardware encoder
+[Recorder] Started recording: recordings/recording_20260504_154227.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260504_154227.mp4 (frames: 1, duration: 0.0s)
+[Recorder] Using NVENC hardware encoder
+[Recorder] Started recording: recordings/recording_20260504_154419.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260504_154419.mp4 (frames: 2, duration: 0.1s)
+[Recorder] Using NVENC hardware encoder
+[Recorder] Started recording: recordings/recording_20260504_154459.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260504_154459.mp4 (frames: 1, duration: 0.0s)
+[Recorder] Using NVENC hardware encoder
+[Recorder] Started recording: recordings/recording_20260504_154753.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260504_154753.mp4 (frames: 2, duration: 0.1s)
+[Recorder] Using NVENC hardware encoder
+[Recorder] Started recording: recordings/recording_20260504_154858.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260504_154858.mp4 (frames: 1, duration: 0.0s)
+[Recorder] Using NVENC hardware encoder
+[Recorder] Started recording: recordings/recording_20260504_154940.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260504_154940.mp4 (frames: 1, duration: 0.0s)
+[Recorder] Using NVENC hardware encoder
+[Recorder] Started recording: recordings/recording_20260504_155013.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260504_155013.mp4 (frames: 12, duration: 0.5s)
+[Recorder] Using NVENC hardware encoder
+[Recorder] Started recording: recordings/recording_20260504_155100.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260504_155100.mp4 (frames: 8, duration: 0.3s)
+[Recorder] Using NVENC hardware encoder
+[Recorder] Started recording: recordings/recording_20260504_155913.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260504_155913.mp4 (frames: 17, duration: 0.7s)
+[Recorder] Using NVENC hardware encoder
+[Recorder] Started recording: recordings/recording_20260504_155953.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260504_155953.mp4 (frames: 17, duration: 0.7s)
+[Recorder] Using NVENC hardware encoder
+[Recorder] Started recording: recordings/recording_20260504_160256.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260504_160256.mp4 (frames: 29, duration: 1.2s)
+[Recorder] Using NVENC hardware encoder
+[Recorder] Started recording: recordings/recording_20260504_160334.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260504_160334.mp4 (frames: 7, duration: 0.3s)
+[Recorder] Using NVENC hardware encoder
+[Recorder] Started recording: recordings/recording_20260504_160344.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260504_160344.mp4 (frames: 38, duration: 1.6s)
+[Recorder] Using NVENC hardware encoder
+[Recorder] Started recording: recordings/recording_20260504_160405.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260504_160405.mp4 (frames: 10, duration: 0.4s)
+[Recorder] Using NVENC hardware encoder
+[Recorder] Started recording: recordings/recording_20260504_160448.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260504_160448.mp4 (frames: 3, duration: 0.1s)
+[Recorder] Using NVENC hardware encoder
+[Recorder] Started recording: recordings/recording_20260504_160458.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260504_160458.mp4 (frames: 2, duration: 0.1s)
+[Recorder] Using NVENC hardware encoder
+[Recorder] Started recording: recordings/recording_20260504_160505.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260504_160505.mp4 (frames: 1, duration: 0.0s)
+[Recorder] Using NVENC hardware encoder
+[Recorder] Started recording: recordings/recording_20260504_160526.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260504_160526.mp4 (frames: 3, duration: 0.1s)
+[Recorder] Using NVENC hardware encoder
+[Recorder] Started recording: recordings/recording_20260504_160606.mp4 (GPU encoding)
+[Recorder] Stopped recording: recordings/recording_20260504_160606.mp4 (frames: 13, duration: 0.5s)
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+[Recorder] Using NVENC hardware encoder
+[Recorder] Failed to create CUDA device context
+[Recorder] Failed to init hardware encoder, falling back to CPU
+[Recorder] Failed to open codec
+
+[Process exited with code: 1]
+

@@ -1,17 +1,19 @@
 {
-    "push": {
-        "rtsp_url": "rtsp://120.8.192.62:8554/live/test",
-        "video_width": 1920,
-        "video_height": 1080,
-        "frame_rate": 24,
-        "video_bitrate": 5000000
-    },
+    "name": "大门",
+    "enabled": true,
     "capture": {
         "device_name": "video=LRCP 500W",
         "input_format": "dshow",
         "video_width": 1920,
         "video_height": 1080,
         "framerate": 30
+    },
+    "push": {
+        "rtsp_url": "rtsp://120.8.174.126:8554/live/t1",
+        "video_width": 1920,
+        "video_height": 1080,
+        "frame_rate": 24,
+        "video_bitrate": 5000000
     },
     "detector": {
         "enabled": true,

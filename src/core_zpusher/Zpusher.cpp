@@ -17,10 +17,10 @@ ZPusher::~ZPusher()
     if (detect_queue) delete detect_queue;
 }
 
-void ZPusher::Init()
+void ZPusher::Init(const std::string& config_path)
 {
     Config& config = Config::getInstance();
-    if (!config.load("config.json")) {
+    if (!config.load(config_path)) {
         std::cerr << "[ZPusher] Failed to load config, using defaults" << std::endl;
     }
     

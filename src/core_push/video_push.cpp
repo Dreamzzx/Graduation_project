@@ -288,20 +288,27 @@ bool FFmpegPush::init_frames() {
 bool FFmpegPush::write_rtsp_header() {
     AVDictionary* opts = nullptr;
     av_dict_set(&opts, "rtsp_transport", "tcp", 0);
-    av_dict_set(&opts, "stimeout", "1000000", 0);
+    av_dict_set(&opts, "stimeout", "5000000", 0);
     av_dict_set(&opts, "max_delay", "0", 0);
     av_dict_set(&opts, "buffer_size", "1024000", 0);
 
-    int ret = avformat_write_header(fmt_ctx, &opts);
-    if (ret < 0) {
+    int max_retries = 3;
+    int retry_delay_ms = 2000;
+    for (int attempt = 1; attempt <= max_retries; attempt++) {
+        int ret = avformat_write_header(fmt_ctx, &opts);
+        if (ret >= 0) {
+            av_dict_free(&opts);
+            return true;
+        }
         char errbuf[256];
         av_strerror(ret, errbuf, sizeof(errbuf));
-        std::cerr << "Write header failed: " << errbuf << std::endl;
-        av_dict_free(&opts);
-        return false;
+        std::cerr << "Write header failed (attempt " << attempt << "/" << max_retries << "): " << errbuf << std::endl;
+        if (attempt < max_retries) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(retry_delay_ms));
+        }
     }
     av_dict_free(&opts);
-    return true;
+    return false;
 }
 
 bool FFmpegPush::convert_bgr_to_nv12(const cv::Mat& bgr_frame) {

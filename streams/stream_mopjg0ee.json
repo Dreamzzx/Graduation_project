@@ -1,21 +1,23 @@
 {
+    "name": "2",
+    "enabled": true,
+    "capture": {
+        "device_name": "",
+        "input_format": "dshow",
+        "video_width": 640,
+        "video_height": 360,
+        "framerate": 24
+    },
     "push": {
-        "rtsp_url": "rtsp://120.8.192.62:8554/live/test",
+        "rtsp_url": "",
         "video_width": 1920,
         "video_height": 1080,
         "frame_rate": 24,
         "video_bitrate": 5000000
     },
-    "capture": {
-        "device_name": "video=LRCP 500W",
-        "input_format": "dshow",
-        "video_width": 1920,
-        "video_height": 1080,
-        "framerate": 30
-    },
     "detector": {
         "enabled": true,
-        "model_path": "model/yolo11n.onnx",
+        "model_path": "",
         "confidence_threshold": 0.5,
         "input_width": 640,
         "input_height": 640,
@@ -31,5 +33,6 @@
     "log": {
         "level": "info",
         "debug_enabled": false
-    }
+    },
+    "id": "stream_mopjg0ee"
 }

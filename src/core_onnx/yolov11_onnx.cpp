@@ -6,6 +6,25 @@
 #include <Windows.h>
 #include "C:/cuda12.3/include/cuda_runtime.h"
 
+static const std::vector<std::string> COCO_CLASSES = {
+    "person", "bicycle", "car", "motorcycle", "airplane",
+    "bus", "train", "truck", "boat", "traffic light",
+    "fire hydrant", "stop sign", "parking meter", "bench", "bird",
+    "cat", "dog", "horse", "sheep", "cow",
+    "elephant", "bear", "zebra", "giraffe", "backpack",
+    "umbrella", "handbag", "tie", "suitcase", "frisbee",
+    "skis", "snowboard", "sports ball", "kite", "baseball bat",
+    "baseball glove", "skateboard", "surfboard", "tennis racket", "bottle",
+    "wine glass", "cup", "fork", "knife", "spoon",
+    "bowl", "banana", "apple", "sandwich", "orange",
+    "broccoli", "carrot", "hot dog", "pizza", "donut",
+    "cake", "chair", "couch", "potted plant", "bed",
+    "dining table", "toilet", "tv", "laptop", "mouse",
+    "remote", "keyboard", "cell phone", "microwave", "oven",
+    "toaster", "sink", "refrigerator", "book", "clock",
+    "vase", "scissors", "teddy bear", "hair drier", "toothbrush"
+};
+
 std::wstring string_to_wstring(const std::string& str) {
     if (str.empty()) return std::wstring();
     int size = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, nullptr, 0);
@@ -84,6 +103,29 @@ bool YOLOv11Detector::Init(
     this->nms_thresh = nms_thresh;
     this->input_queue = input_queue;
     this->output_queue = output_queue;
+    
+    target_class_ids.clear();
+    for (const auto& cls : class_names) {
+        for (size_t i = 0; i < COCO_CLASSES.size(); i++) {
+            if (cls == COCO_CLASSES[i]) {
+                target_class_ids.insert(static_cast<int>(i));
+                break;
+            }
+        }
+    }
+    
+    if (target_class_ids.empty()) {
+        std::cerr << "[Detector] Warning: no valid target classes found, detecting all classes" << std::endl;
+        for (size_t i = 0; i < COCO_CLASSES.size(); i++) {
+            target_class_ids.insert(static_cast<int>(i));
+        }
+    }
+    
+    std::cout << "[Detector] Target classes: ";
+    for (const auto& cls : class_names) {
+        std::cout << cls << " ";
+    }
+    std::cout << std::endl;
     
     std::string full_model_path = model_path;
     if (model_path.find(':') == std::string::npos) {
@@ -251,7 +293,7 @@ cv::Mat YOLOv11Detector::draw_detections(const cv::Mat& img, const std::vector<D
             cv::Point(padding + box_width, padding + box_height),
             cv::Scalar(0, 0, 255), -1);
         
-        std::string alert_text = "ALERT: INTRUDER DETECTED!";
+        std::string alert_text = "ALERT: TARGET DETECTED!";
         int font_face = cv::FONT_HERSHEY_SIMPLEX;
         double font_scale = 0.8;
         int thickness = 2;
@@ -280,7 +322,7 @@ cv::Mat YOLOv11Detector::draw_detections(const cv::Mat& img, const std::vector<D
         cv::Scalar color = colors[res.class_id % colors.size()];
         cv::rectangle(draw_img, res.bbox, color, 2);
 
-        std::string label = "person " + std::to_string(static_cast<int>(res.confidence * 100)) + "%";
+        std::string label = res.class_name + " " + std::to_string(static_cast<int>(res.confidence * 100)) + "%";
         double label_font_scale = 0.6;
         int label_thickness = 2;
         int baseline = 0;
@@ -365,7 +407,7 @@ std::vector<Detection> YOLOv11Detector::postprocess(float* output_data, int outp
             continue;
         }
 
-        if (cls_id != 0) {
+        if (target_class_ids.find(cls_id) == target_class_ids.end()) {
             continue;
         }
 
@@ -396,7 +438,11 @@ std::vector<Detection> YOLOv11Detector::postprocess(float* output_data, int outp
         res.bbox = boxes[idx];
         res.confidence = confidences[idx];
         res.class_id = class_ids[idx];
-        res.class_name = "person";
+        if (class_ids[idx] >= 0 && class_ids[idx] < static_cast<int>(COCO_CLASSES.size())) {
+            res.class_name = COCO_CLASSES[class_ids[idx]];
+        } else {
+            res.class_name = "unknown";
+        }
         results.push_back(res);
     }
     return results;
