@@ -1,0 +1,70 @@
+[Config] Using config: D:\Project\Graduation project\streams\stream_default.json
+[Config] Parsing config file: D:\Project\Graduation project\streams\stream_default.json
+[Config] Loaded successfully from D:\Project\Graduation project\streams\stream_default.json
+========== Configuration ==========
+[Push]
+  RTSP URL: rtsp://120.8.174.237:8554/live/live_1
+  Video: 1920x1080, Bitrate: 5000000, FPS: 30
+[Capture]
+  Device: video=LRCP 500W
+  Video: 1920x1080, FPS: 30
+  Input Format: dshow
+[Detector]
+  Enabled: YES
+  Model: model/yolo11n.onnx
+  Confidence: 0.5
+  Input: 640x640
+[Recorder]
+  Enabled: YES
+  Output Dir: recordings
+  Person Leave Timeout: 3000ms
+[Log]
+  Level: info
+  Debug: OFF
+==========================================
+Capture settings: 1920x1080 @ 30fps
+Opening video device: video=LRCP 500W
+Video stream codec: mjpeg, codec_id: 7
+CUDA device context created successfully!
+Using hardware decoder: mjpeg_cuvid
+Set hw_device_ctx before open
+HW frames context set after open: 1920x1080
+Decoder opened: mjpeg_cuvid
+codec_ctx->hw_frames_ctx: SET
+codec_ctx->hw_device_ctx: SET
+[Capture Mode]: Init Success!
+Model path: D:\Project\Graduation project\build\bin\Debug\..\..\..\model/yolo11n.onnx
+CUDA devices found: 1
+Device 0: NVIDIA GeForce GTX 1650
+Using GPU for inference.
+Loading model from: D:\Project\Graduation project\build\bin\Debug\..\..\..\model/yolo11n.onnx
+Model loaded successfully!
+Input node 0: images
+Output node 0: output0
+Yolov11 Onnx Model loaded successfully: model/yolo11n.onnx
+[Detection Mode]: Init Success!
+[Push] Starting stream to: rtsp://120.8.174.237:8554/live/live_1
+[Push] Resolution: 1920x1080, Bitrate: 5000000
+[1/7] Network init...
+[2/7] CUDA init...
+[3/7] Format context...
+[4/7] Video stream...
+NVENC supports CUDA hardware acceleration
+[5/7] Codec context...
+[NVENC] Configured for ultra-low latency (preset=p1, tune=ull)
+0 0 0 1 103 77 64 40 149 160 30 0 137 249 112 17 0 0 3 3 
+[SPS/PPS] Extradata size=47, first bytes: 0 0 0 1
+[SPS/PPS] Parsing AnnexB extradata
+[SPS/PPS] Extracted SPS from AnnexB, size=39
+[SPS/PPS] Extracted PPS from AnnexB, size=8
+[SPS/PPS] Successfully extracted SPS(39 bytes), PPS(8 bytes)
+[6/7] Swscale...
+Init success!
+[Push Mode]: Init Success!
+[Recorder] Initialized. Output dir: recordings
+[Recorder Mode]: Init Success!
+[Push] Starting stream to: rtsp://120.8.174.237:8554/live/live_1
+[Push] Resolution: 1920x1080, Bitrate: 5000000
+[Push] SPS/PPS extracted: YES
+
+[Process exited with code: 1]

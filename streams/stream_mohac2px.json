@@ -1,17 +1,19 @@
 {
+    "name": "东北角",
+    "enabled": true,
+    "capture": {
+        "device_name": "video=HP Wide Vision HD Camera",
+        "input_format": "dshow",
+        "video_width": 1280,
+        "video_height": 720,
+        "framerate": 30
+    },
     "push": {
-        "rtsp_url": "rtsp://120.8.192.62:8554/live/test",
+        "rtsp_url": "rtsp://localhost:8554/live/t2",
         "video_width": 1920,
         "video_height": 1080,
         "frame_rate": 24,
         "video_bitrate": 5000000
-    },
-    "capture": {
-        "device_name": "video=LRCP 500W",
-        "input_format": "dshow",
-        "video_width": 1920,
-        "video_height": 1080,
-        "framerate": 30
     },
     "detector": {
         "enabled": true,
@@ -24,7 +26,7 @@
         ]
     },
     "recorder": {
-        "enabled": true,
+        "enabled": false,
         "output_dir": "recordings",
         "person_leave_timeout_ms": 3000
     },

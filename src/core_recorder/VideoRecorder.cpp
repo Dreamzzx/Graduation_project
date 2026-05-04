@@ -334,7 +334,7 @@ bool VideoRecorder::writeFrame(const cv::Mat& frame) {
         }
         encode_frame = hw_frame;
     }
-    
+
     encode_frame->pts = elapsed_ms * 90;
     encode_frame->key_frame = 0;
     encode_frame->pict_type = AV_PICTURE_TYPE_NONE;

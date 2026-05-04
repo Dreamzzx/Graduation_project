@@ -25,7 +25,7 @@ public:
     ZPusher();
     ~ZPusher();
 
-    void Init();
+    void Init(const std::string& config_path = "config.json");
     void start_Push();
     void stop_Push();
 

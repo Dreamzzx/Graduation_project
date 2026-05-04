@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <set>
 #include <opencv2/opencv.hpp>
 #include <onnxruntime_cxx_api.h>
 #include <VideoFrameQueue.h>
@@ -44,6 +45,7 @@ private:
     float conf_thresh;
     float nms_thresh;
     std::vector<std::string> class_names;
+    std::set<int> target_class_ids;
     float scale;
     int pad_h;
     int pad_w;
